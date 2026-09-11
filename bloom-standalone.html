@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f7efe7" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Bloom" />
+  <title>Bloom — Mood & Cycle Tracker</title>
+  <style>
+    :root{
+      --bg:#f7efe7; --ink:#2e2430; --muted:#756b76; --card:#fffdfa;
+      --pink:#eb5d86; --coral:#f47a58; --yellow:#f4bd45;
+      --green:#61a66d; --lav:#9f7bcc; --sky:#69a8cc;
+      --soft-pink:#fde2e8; --soft-green:#e5f2e5; --soft-yellow:#fff1bf; --soft-lav:#eee6f8;
+      --shadow:0 12px 35px rgba(65,43,62,.09);
+    }
+    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{min-height:100vh;overflow-x:hidden}
+    .app{max-width:480px;margin:0 auto;min-height:100vh;position:relative;padding:env(safe-area-inset-top) 18px calc(92px + env(safe-area-inset-bottom))}
+    .floral{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+    .blob{position:absolute;border-radius:50%;filter:blur(8px);opacity:.24}
+    .b1{width:180px;height:180px;right:-70px;top:-20px;background:radial-gradient(circle at 35% 35%,#ff8cab,transparent 45%),radial-gradient(circle at 70% 50%,#f6c453,transparent 42%),radial-gradient(circle at 48% 74%,#8abf8f,transparent 42%)}
+    .b2{width:220px;height:220px;left:-110px;bottom:80px;background:radial-gradient(circle at 58% 34%,#a587d1,transparent 44%),radial-gradient(circle at 42% 68%,#72b58b,transparent 45%)}
+    header{padding:26px 6px 16px}
+    h1{font-size:30px;line-height:1.05;margin:0 0 8px;font-weight:760;letter-spacing:-.7px}
+    .sub{color:var(--muted);font-size:14px;line-height:1.35}
+    .card{background:rgba(255,253,250,.9);border:1px solid rgba(255,255,255,.75);border-radius:28px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px;backdrop-filter:blur(12px)}
+    .soft-pink{background:rgba(253,226,232,.9)} .soft-green{background:rgba(229,242,229,.92)}
+    .soft-yellow{background:rgba(255,241,191,.93)} .soft-lav{background:rgba(238,230,248,.93)}
+    .row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}.wrap{flex-wrap:wrap}
+    .title{font-size:17px;font-weight:700}.small{font-size:12px;color:var(--muted)}.tiny{font-size:11px;color:var(--muted)}
+    .moods{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:16px}
+    .mood{border:0;background:rgba(255,255,255,.72);border-radius:18px;padding:10px 4px;font-size:27px;min-height:58px}
+    .mood.active{outline:2px solid var(--pink);background:white}
+    .bar{height:12px;background:white;border-radius:999px;overflow:hidden;margin:12px 0}.fill{height:100%;background:linear-gradient(90deg,var(--lav),var(--pink));border-radius:999px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.stat{padding:12px 8px;border-radius:18px;background:rgba(255,255,255,.55)}.stat b{display:block;font-size:15px;margin-top:5px}
+    .btn{width:100%;border:0;border-radius:20px;padding:16px 18px;font-size:15px;font-weight:700;background:var(--ink);color:white}.btn.pink{background:var(--pink)}
+    .screen{display:none}.screen.active{display:block}
+    .section-label{font-size:14px;font-weight:700;margin:8px 4px 10px}
+    .choice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+    .choice{border:1px solid transparent;border-radius:20px;background:var(--card);padding:12px 6px;text-align:center;box-shadow:0 6px 18px rgba(65,43,62,.06)}
+    .choice span{display:block;font-size:24px;margin-bottom:5px}.choice small{font-size:11px}.choice.selected{border-color:var(--pink);background:var(--soft-pink)}
+    .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.seg button{border:0;padding:12px;border-radius:16px;background:#fff}.seg button.selected{background:var(--yellow);font-weight:700}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}.tag{border:0;border-radius:999px;padding:10px 13px;background:#fff;font-size:12px}.tag.selected{background:var(--soft-pink);color:#b32854;font-weight:700}
+    textarea,input{width:100%;border:0;border-radius:18px;padding:14px;background:#fff;font:inherit;color:var(--ink)}textarea{min-height:88px;resize:vertical}
+    .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;text-align:center}.dow{font-size:10px;color:var(--muted);font-weight:700;padding-bottom:4px}.day{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:rgba(255,255,255,.55);position:relative}
+    .day.period{background:var(--soft-pink)} .day.today{background:var(--pink);color:#fff;font-weight:700}
+    .dot{width:6px;height:6px;border-radius:50%;position:absolute;bottom:2px;right:2px}.dot.good{background:var(--green)}.dot.low{background:var(--lav)}.dot.flat{background:var(--sky)}.dot.irritable{background:var(--coral)}
+    canvas{width:100%;height:180px;display:block}
+    .insight{padding:12px 0;border-bottom:1px solid rgba(46,36,48,.08)}.insight:last-child{border-bottom:0}
+    .nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:min(446px,calc(100% - 28px));background:rgba(255,255,255,.93);border-radius:26px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 14px 40px rgba(65,43,62,.16);backdrop-filter:blur(14px);z-index:10}
+    .nav button{border:0;background:transparent;border-radius:18px;padding:8px 4px;color:var(--muted);font-size:10px}.nav b{display:block;font-size:18px;margin-bottom:3px}.nav button.active{background:var(--soft-pink);color:var(--pink);font-weight:700}
+    .notice{position:fixed;left:50%;transform:translateX(-50%);bottom:100px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:999px;font-size:12px;opacity:0;transition:.25s;pointer-events:none;z-index:20}.notice.show{opacity:1}
+  </style>
+</head>
+<body>
+<div class="floral"><div class="blob b1"></div><div class="blob b2"></div></div>
+<main class="app">
+  <section class="screen active" id="today">
+    <header><h1>Good evening, Santie 🌸</h1><div class="sub" id="todayDate"></div></header>
+    <div class="card soft-pink">
+      <div class="title">How are you feeling?</div><div class="small">A tiny check-in counts.</div>
+      <div class="moods" id="quickMoods"></div>
+    </div>
+    <div class="card soft-lav">
+      <div class="row between"><div><div class="title" id="cycleTitle">Cycle day —</div><div class="small" id="cycleSub">Add your last period date in Cycle.</div></div><div style="font-size:28px">◔</div></div>
+      <div class="bar"><div class="fill" id="cycleFill" style="width:0%"></div></div>
+      <div class="tiny" id="cycleNote">Bloom will estimate your current phase once you've added cycle details.</div>
+    </div>
+    <div class="card soft-green">
+      <div class="title">Today’s pattern</div>
+      <div class="stats">
+        <div class="stat"><span class="tiny">Mood</span><b id="todayMood">—</b></div>
+        <div class="stat"><span class="tiny">Energy</span><b id="todayEnergy">—</b></div>
+        <div class="stat"><span class="tiny">Entries</span><b id="todayEntries">0</b></div>
+      </div>
+      <p class="tiny" id="phaseHint">Your cycle-aware note will appear here.</p>
+    </div>
+    <button class="btn" data-go="log">＋ Log mood & symptoms</button>
+  </section>
+
+  <section class="screen" id="log">
+    <header><h1>Log your moment</h1><div class="sub">No essays required. Just enough to spot patterns.</div></header>
+    <div class="section-label">Mood</div><div class="choice-grid" id="moodChoices"></div>
+    <div class="section-label">Energy</div>
+    <div class="card"><div class="seg" id="energyChoices"><button data-energy="Low">Low</button><button data-energy="Medium">Medium</button><button data-energy="High">High</button></div></div>
+    <div class="section-label">What’s showing up?</div>
+    <div class="tags" id="symptomTags"></div>
+    <div class="section-label">Optional note</div>
+    <div class="card"><textarea id="note" placeholder="Felt overstimulated after work…"></textarea></div>
+    <button class="btn pink" id="saveEntry">Save check-in</button>
+  </section>
+
+  <section class="screen" id="cycle">
+    <header><h1>Cycle</h1><div class="sub">Your cycle and mood, in the same picture.</div></header>
+    <div class="card soft-lav">
+      <div class="row between"><div><div class="title" id="cycleCardTitle">Add cycle details</div><div class="small" id="cycleCardSub">Bloom uses these only on this device.</div></div><div style="font-size:27px">🌙</div></div>
+      <div style="height:12px"></div>
+      <label class="tiny">First day of last period</label><input id="lastPeriod" type="date" />
+      <div style="height:10px"></div>
+      <label class="tiny">Typical cycle length</label><input id="cycleLength" type="number" min="20" max="45" value="28" />
+      <div style="height:10px"></div>
+      <label class="tiny">Typical period length</label><input id="periodLength" type="number" min="2" max="10" value="5" />
+      <div style="height:12px"></div><button class="btn pink" id="saveCycle">Save cycle</button>
+    </div>
+    <div class="section-label" id="monthLabel"></div>
+    <div class="card"><div class="calendar" id="calendar"></div></div>
+    <div class="card soft-yellow">
+      <div class="title">Mood overlay</div>
+      <p class="tiny">Coloured dots show days with mood entries. Tap a day to inspect entries later — this first build focuses on the pattern view.</p>
+    </div>
+  </section>
+
+  <section class="screen" id="insights">
+    <header><h1>Insights</h1><div class="sub">Patterns, not judgement.</div></header>
+    <div class="card soft-pink"><div class="title">A pattern is emerging ✦</div><p class="small" id="topInsight">Add a few check-ins and Bloom will start surfacing patterns.</p></div>
+    <div class="card"><div class="title">Mood across recent entries</div><canvas id="moodChart" width="600" height="260"></canvas></div>
+    <div class="card soft-green"><div class="title">What may help</div><div id="helpTips"></div></div>
+  </section>
+</main>
+
+<nav class="nav">
+  <button class="active" data-screen="today"><b>●</b>Today</button>
+  <button data-screen="log"><b>＋</b>Log</button>
+  <button data-screen="cycle"><b>◔</b>Cycle</button>
+  <button data-screen="insights"><b>✦</b>Insights</button>
+</nav>
+<div class="notice" id="notice">Saved 🌸</div>
+
+<script>
+const moods=[
+  {k:'good',emoji:'😊',label:'Good',score:5},
+  {k:'calm',emoji:'😌',label:'Calm',score:4},
+  {k:'flat',emoji:'😐',label:'Flat',score:3},
+  {k:'low',emoji:'😣',label:'Low',score:2},
+  {k:'sad',emoji:'😭',label:'Sad',score:1}
+];
+const symptoms=['Crampy','Headache','Hungry','Sensitive','Focused','Social','Overstimulated','Anxious','Irritable','Tired'];
+let state=JSON.parse(localStorage.getItem('bloomState')||'{}');
+state.entries=state.entries||[]; state.cycle=state.cycle||{};
+let draft={mood:null,energy:null,symptoms:[]};
+
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function save(){localStorage.setItem('bloomState',JSON.stringify(state))}
+function toast(msg='Saved 🌸'){const n=$('#notice');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),1700)}
+function go(id){$$('.screen').forEach(x=>x.classList.toggle('active',x.id===id));$$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.screen===id));window.scrollTo({top:0,behavior:'smooth'}); if(id==='insights') drawInsights()}
+$$('[data-screen]').forEach(b=>b.onclick=()=>go(b.dataset.screen)); $$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+
+function renderMoodButtons(){
+  $('#quickMoods').innerHTML=moods.map(m=>`<button class="mood" data-qm="${m.k}" title="${m.label}">${m.emoji}</button>`).join('');
+  $$('[data-qm]').forEach(b=>b.onclick=()=>{draft.mood=b.dataset.qm;go('log');renderDraft()});
+  $('#moodChoices').innerHTML=moods.slice(0,4).map(m=>`<button class="choice" data-mood="${m.k}"><span>${m.emoji}</span><small>${m.label}</small></button>`).join('');
+  $$('[data-mood]').forEach(b=>b.onclick=()=>{draft.mood=b.dataset.mood;renderDraft()});
+  $('#symptomTags').innerHTML=symptoms.map(s=>`<button class="tag" data-symptom="${s}">${s}</button>`).join('');
+  $$('[data-symptom]').forEach(b=>b.onclick=()=>{const s=b.dataset.symptom;draft.symptoms=draft.symptoms.includes(s)?draft.symptoms.filter(x=>x!==s):[...draft.symptoms,s];renderDraft()});
+  $$('[data-energy]').forEach(b=>b.onclick=()=>{draft.energy=b.dataset.energy;renderDraft()});
+}
+function renderDraft(){
+  $$('[data-mood]').forEach(b=>b.classList.toggle('selected',b.dataset.mood===draft.mood));
+  $$('[data-energy]').forEach(b=>b.classList.toggle('selected',b.dataset.energy===draft.energy));
+  $$('[data-symptom]').forEach(b=>b.classList.toggle('selected',draft.symptoms.includes(b.dataset.symptom)));
+}
+$('#saveEntry').onclick=()=>{
+  if(!draft.mood){toast('Pick a mood first 🌷');return}
+  state.entries.push({id:Date.now(),ts:new Date().toISOString(),mood:draft.mood,energy:draft.energy||'Medium',symptoms:draft.symptoms,note:$('#note').value.trim()});
+  save(); draft={mood:null,energy:null,symptoms:[]}; $('#note').value=''; renderDraft(); renderAll(); toast(); go('today');
+};
+
+function daysBetween(a,b){return Math.floor((b-a)/(1000*60*60*24))}
+function cycleInfo(date=new Date()){
+  const c=state.cycle;if(!c.lastPeriod)return null;
+  const start=new Date(c.lastPeriod+'T00:00:00'); const len=Number(c.cycleLength||28); const pLen=Number(c.periodLength||5);
+  let d=daysBetween(start,date); if(d<0)return null; const day=(d%len)+1;
+  let phase=day<=pLen?'Menstrual':day<=Math.max(pLen+1,Math.floor(len*.46))?'Follicular':day<=Math.floor(len*.60)?'Ovulation':'Luteal';
+  const daysTo=len-day+1; return {day,len,pLen,phase,daysTo};
+}
+function renderCycleSummary(){
+  const ci=cycleInfo();
+  if(!ci){$('#cycleTitle').textContent='Cycle day —';$('#cycleSub').textContent='Add your last period date in Cycle.';$('#cycleFill').style.width='0%';$('#cycleNote').textContent='Bloom will estimate your current phase once you’ve added cycle details.'; return}
+  $('#cycleTitle').textContent=`Cycle day ${ci.day}`;
+  $('#cycleSub').textContent=`${ci.phase} phase · period in ~${ci.daysTo} day${ci.daysTo===1?'':'s'}`;
+  $('#cycleFill').style.width=`${Math.min(100,(ci.day/ci.len)*100)}%`;
+  const notes={Menstrual:'Lower energy is common here; prioritise recovery where you can.',Follicular:'Energy often starts to rise — a useful window for starting things.',Ovulation:'You may feel more social or energetic around this phase.',Luteal:'Energy, appetite and sensitivity can shift here. Plan with a little extra margin.'};
+  $('#cycleNote').textContent=notes[ci.phase];
+  $('#phaseHint').textContent=notes[ci.phase];
+  $('#cycleCardTitle').textContent=`Day ${ci.day} · ${ci.phase}`; $('#cycleCardSub').textContent=`Estimated from your saved cycle length of ${ci.len} days.`;
+}
+$('#saveCycle').onclick=()=>{
+  state.cycle={lastPeriod:$('#lastPeriod').value,cycleLength:Number($('#cycleLength').value||28),periodLength:Number($('#periodLength').value||5)};
+  save();renderAll();toast('Cycle saved 🌙');
+};
+
+function renderToday(){
+  const today=new Date().toDateString();
+  const e=state.entries.filter(x=>new Date(x.ts).toDateString()===today);
+  const last=e[e.length-1];
+  $('#todayMood').textContent=last?moods.find(m=>m.k===last.mood)?.label||last.mood:'—';
+  $('#todayEnergy').textContent=last?.energy||'—'; $('#todayEntries').textContent=e.length;
+}
+function entryDotFor(date){
+  const es=state.entries.filter(e=>new Date(e.ts).toDateString()===date.toDateString()); if(!es.length)return '';
+  const m=es[es.length-1].mood; const cls=m==='good'||m==='calm'?'good':m==='low'||m==='sad'?'low':m==='flat'?'flat':'irritable';
+  return `<i class="dot ${cls}"></i>`;
+}
+function renderCalendar(){
+  const now=new Date(), y=now.getFullYear(), mo=now.getMonth(); $('#monthLabel').textContent=now.toLocaleDateString(undefined,{month:'long',year:'numeric'});
+  const first=new Date(y,mo,1), last=new Date(y,mo+1,0), start=(first.getDay()+6)%7;
+  let html=['M','T','W','T','F','S','S'].map(d=>`<div class="dow">${d}</div>`).join('');
+  for(let i=0;i<start;i++)html+='<div></div>';
+  for(let d=1;d<=last.getDate();d++){const dt=new Date(y,mo,d);const ci=cycleInfo(dt);const period=ci&&ci.day<=ci.pLen;const isToday=dt.toDateString()===now.toDateString();html+=`<div class="day ${period?'period':''} ${isToday?'today':''}">${d}${entryDotFor(dt)}</div>`}
+  $('#calendar').innerHTML=html;
+}
+function drawInsights(){
+  const c=$('#moodChart'),ctx=c.getContext('2d'), entries=state.entries.slice(-14);ctx.clearRect(0,0,c.width,c.height);
+  ctx.strokeStyle='rgba(46,36,48,.12)';ctx.lineWidth=1;for(let i=1;i<=5;i++){let y=35+(5-i)*42;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(575,y);ctx.stroke()}
+  if(entries.length<2){ctx.fillStyle='#756b76';ctx.font='24px -apple-system';ctx.fillText('Log a few moods to see your pattern.',55,130);return}
+  const pts=entries.map((e,i)=>({x:50+i*(510/(entries.length-1)),y:35+(5-(moods.find(m=>m.k===e.mood)?.score||3))*42}));
+  ctx.strokeStyle='#eb5d86';ctx.lineWidth=6;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();
+  ctx.fillStyle='#eb5d86';pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,7,0,Math.PI*2);ctx.fill()});
+}
+function renderInsightsText(){
+  const es=state.entries;
+  if(es.length<3){$('#topInsight').textContent='Add a few check-ins and Bloom will start surfacing patterns.'}
+  else{
+    const avg=es.slice(-7).reduce((a,e)=>a+(moods.find(m=>m.k===e.mood)?.score||3),0)/Math.min(7,es.length);
+    const ci=cycleInfo(); $('#topInsight').textContent=avg<3?`Your recent mood scores are running lower${ci?` during the ${ci.phase.toLowerCase()} phase`:''}. That may be worth planning around.`:`Your recent check-ins are relatively steady${ci?` in the ${ci.phase.toLowerCase()} phase`:''}.`;
+  }
+  const ci=cycleInfo(); const tips=ci?.phase==='Luteal'?['Protect decompression time after work.','Front-load fiddly tasks when energy is better.','Treat irritability as data, not a personality flaw.']:['Notice what reliably improves the next check-in.','Keep entries tiny — consistency matters more than detail.','Use the cycle view to separate “today” from a repeating pattern.'];
+  $('#helpTips').innerHTML=tips.map(t=>`<div class="insight small">• ${t}</div>`).join('');
+}
+function renderAll(){
+  $('#todayDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'});
+  if(state.cycle.lastPeriod)$('#lastPeriod').value=state.cycle.lastPeriod;
+  if(state.cycle.cycleLength)$('#cycleLength').value=state.cycle.cycleLength;
+  if(state.cycle.periodLength)$('#periodLength').value=state.cycle.periodLength;
+  renderToday();renderCycleSummary();renderCalendar();renderInsightsText();
+}
+renderMoodButtons();renderAll();
+</script>
+</body>
+</html>
