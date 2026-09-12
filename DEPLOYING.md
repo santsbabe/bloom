@@ -1,0 +1,1 @@
+Bloom is deployed from index.html on the main branch.
