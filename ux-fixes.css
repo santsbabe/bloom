@@ -23,7 +23,7 @@
 #cycleSymptomSection.low-simple-symptoms #cycleSymptomGroups{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 #cycleSymptomSection.low-simple-symptoms .tag-grid{display:contents}
 
-/* A low-energy check-in should not produce a Today screen full of meaningless dashes. */
-#view-today.low-today .grid2{display:none!important}.low-today-summary{border-top:3px solid var(--pink);border-bottom:1px solid var(--line);padding:22px 8px;margin-bottom:20px}.low-today-summary h2{font-size:32px;color:var(--pink);margin:0 0 6px}.low-today-summary p{margin:0;color:var(--muted);line-height:1.5}
+/* A low-energy check-in produces a deliberately minimal Today screen. */
+#view-today.low-today .grid2,#view-today.low-today>.section-label,#view-today.low-today>.card.soft{display:none!important}.low-today-summary{border-top:3px solid var(--pink);border-bottom:1px solid var(--line);padding:22px 8px;margin-bottom:20px}.low-today-summary h2{font-size:32px;color:var(--pink);margin:0 0 6px}.low-today-summary p{margin:0;color:var(--muted);line-height:1.5}
 
 @media(max-width:760px){.app{padding-bottom:72px!important}.bleeding-wrap{width:100%;max-width:none}.bleeding-switch{width:100%;min-width:0}.bleeding-help{max-width:none}.low-capacity-actions{flex-direction:column}.low-capacity-actions .btn{width:100%;flex:auto}.low-question{font-size:30px}.low-today-summary h2{font-size:28px}}
