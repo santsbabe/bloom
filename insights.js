@@ -1,4 +1,5 @@
 (()=>{
+const css=document.createElement('link');css.rel='stylesheet';css.href='ux-fixes.css?v=11';document.head.appendChild(css);const ux=document.createElement('script');ux.src='ux-fixes.js?v=11';document.body.appendChild(ux);
 const $=s=>document.querySelector(s);
 function load(k,f){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}}
 function avg(a){const z=a.filter(Number.isFinite);return z.length?z.reduce((s,x)=>s+x,0)/z.length:null}
@@ -19,12 +20,8 @@ const lowActHighMood=data.filter(e=>Number.isFinite(e.activation)&&Number.isFini
 const lowMoodOkayAct=data.filter(e=>Number.isFinite(e.activation)&&Number.isFinite(e.mood)&&e.mood<=2&&e.activation>=3);if(lowMoodOkayAct.length>=3)addInsight(el,'Low mood with functioning still online','There are repeated entries where mood is low but activation remains mixed or better.','Bloom keeps these separate so one does not get used as a proxy for the other.');
 const weak=data.filter(e=>(e.context||[]).includes('medication felt weaker')),normal=data.filter(e=>(e.context||[]).includes('medication felt normal'));if(weak.length>=3&&normal.length>=3){const we=avg(weak.map(e=>e.executive)),ne=avg(normal.map(e=>e.executive)),wen=avg(weak.map(e=>e.energy)),nen=avg(normal.map(e=>e.energy));if(we!=null&&ne!=null&&Math.abs(we-ne)>=.5)addInsight(el,'Medication-feel entries differ',`Executive functioning averages ${fmt(we)} when medication is logged as feeling weaker, versus ${fmt(ne)} when it is logged as feeling normal.`,`Descriptive comparison only; medication response can be affected by many other factors.`);else if(wen!=null&&nen!=null&&Math.abs(wen-nen)>=.5)addInsight(el,'Medication-feel entries differ',`Mental energy averages ${fmt(wen)} when medication is logged as feeling weaker, versus ${fmt(nen)} when it is logged as feeling normal.`,`Descriptive comparison only; medication response can be affected by many other factors.`)}
 }
-
-/* Flow fix: Today is an output, not an empty landing page. */
 function hasToday(){return entries().some(e=>e.date===todayISO())}
 function syncTodayGate(){const tab=document.querySelector('.tab[data-view="today"]'),view=$('#view-today');if(!tab||!view)return;const on=hasToday();tab.hidden=!on;if(!on&&view.classList.contains('active')){document.querySelector('.tab[data-view="checkin"]')?.click()}}
-
-/* Proper body/cycle symptom capture. Stored on the check-in itself so it can be compared with mood/functioning later. */
 const cycleGroups={
  'Bleeding':['spotting','light bleeding','heavy bleeding','clots / flooding'],
  'Pain & body':['cramps','pelvic pain / pressure','breast tenderness','bloating / fluid retention','headache / migraine','joint / muscle aches'],
@@ -41,16 +38,12 @@ function currentEntry(){const date=displayToISO($('#entryDate')?.value),time=$('
 function loadSymptomsForCurrent(){setTimeout(()=>{const e=currentEntry();selectedSymptoms=new Set(e?.cycleSymptoms||[]);syncSymptomButtons()},0)}
 function attachSymptomsAfterSave(){const date=displayToISO($('#entryDate')?.value),time=$('#entryTime')?.value;if(!date||!time)return;setTimeout(()=>{const all=entries();const candidates=all.map((e,i)=>({e,i})).filter(x=>x.e.date===date&&x.e.time===time);if(!candidates.length)return;const target=candidates.sort((a,b)=>(b.e.createdAt||0)-(a.e.createdAt||0))[0];all[target.i]={...target.e,cycleSymptoms:[...selectedSymptoms]};nativeSet.call(localStorage,'bloom.entries.v3',JSON.stringify(all));syncTodayGate();syncTodaySymptoms();schedule();},40)}
 function syncTodaySymptoms(){const e=[...entries()].reverse().find(x=>x.date===todayISO());const host=$('#tContext');if(!e||!host)return;host.querySelectorAll('[data-cycle-symptom="true"]').forEach(x=>x.remove());(e.cycleSymptoms||[]).slice(0,12).forEach(s=>{const chip=document.createElement('span');chip.className='chip';chip.dataset.cycleSymptom='true';chip.textContent=s;host.appendChild(chip)})}
-
 const style=document.createElement('style');style.textContent='.tab[hidden]{display:none!important}.symptom-group{margin-top:14px}.symptom-group-title{font-weight:800;font-size:12px;color:var(--plum);margin-bottom:5px}.cycle-symptom-domain{border-top-color:var(--orange)!important}.cycle-symptom.sel{background:var(--pp);border-color:var(--pink)}';document.head.appendChild(style);
 symptomSection();
-
 const nativeSet=Storage.prototype.setItem;
 Storage.prototype.setItem=function(k,v){const result=nativeSet.call(this,k,v);if(this===localStorage&&k==='bloom.entries.v3')setTimeout(()=>{syncTodayGate();syncTodaySymptoms()},0);return result};
-
 $('#checkinForm')?.addEventListener('submit',attachSymptomsAfterSave);
 document.addEventListener('click',e=>{const t=e.target;if(!(t instanceof HTMLElement))return;if(t.matches('.history-actions button')&&t.textContent.trim()==='Edit')loadSymptomsForCurrent();if(['clearBtn','backfillBtn','historyBackfillBtn','openCheckinBtn','lowEnergyBtn'].includes(t.id))clearSymptoms();if(t.matches('.tab[data-view="today"]'))setTimeout(syncTodaySymptoms,0)});
-
 function schedule(){setTimeout(renderEnhanced,0)}
 document.querySelectorAll('.tab[data-view="patterns"]').forEach(b=>b.addEventListener('click',schedule));$('#rangeSelect')?.addEventListener('change',schedule);window.addEventListener('storage',()=>{schedule();syncTodayGate();syncTodaySymptoms()});
 syncTodayGate();syncTodaySymptoms();schedule();
