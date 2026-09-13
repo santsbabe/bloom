@@ -10,11 +10,13 @@
 #checkinForm.low-mode #note,
 #checkinForm.low-mode>.savebar{display:none!important}
 #checkinForm.low-mode #lowCapacityPanel{display:block!important;margin-top:8px}
-.low-capacity-domain{border-top-color:var(--teal)!important;padding-top:24px!important}.low-question{font-size:clamp(28px,8vw,42px);max-width:14ch}.low-capacity-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.low-capacity-actions .btn{flex:1 1 160px;min-height:54px}
+.low-capacity-domain{border-top-color:var(--teal)!important;padding-top:24px!important}.low-question{font-size:clamp(34px,9vw,48px);max-width:12ch;color:var(--pink);margin-bottom:6px}.low-reassurance{font-size:17px;line-height:1.45;max-width:34ch}.low-capacity-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.low-capacity-actions .btn{flex:1 1 180px;min-height:58px}.low-exit{margin-top:10px!important;width:100%;min-height:48px!important}
 #checkinForm.low-mode #cycleSymptomSection{display:none!important}
 #checkinForm.low-mode #cycleSymptomSection.low-show-symptoms{display:block!important;margin-top:18px}
-.low-save-symptoms{display:none;width:100%;margin-top:18px;min-height:54px}
-#checkinForm.low-mode #cycleSymptomSection.low-show-symptoms .low-save-symptoms{display:block!important}
+.low-save-symptoms,.low-back-symptoms{display:none;width:100%;margin-top:12px;min-height:52px}
+#checkinForm.low-mode #cycleSymptomSection.low-show-symptoms .low-save-symptoms,
+#checkinForm.low-mode #cycleSymptomSection.low-show-symptoms .low-back-symptoms{display:block!important}
+#checkinForm.low-mode #cycleSymptomSection.low-show-symptoms .low-back-symptoms{margin-top:18px!important}
 
 /* Only low-energy gets the short symptom basket. Quick/deep keep the complete grouped set. */
 #cycleSymptomSection.low-simple-symptoms .symptom-group-title{display:none!important}
@@ -26,4 +28,4 @@
 /* A low-energy check-in produces a deliberately minimal Today screen. */
 #view-today.low-today .grid2,#view-today.low-today>.section-label,#view-today.low-today>.card.soft{display:none!important}.low-today-summary{border-top:3px solid var(--pink);border-bottom:1px solid var(--line);padding:22px 8px;margin-bottom:20px}.low-today-summary h2{font-size:32px;color:var(--pink);margin:0 0 6px}.low-today-summary p{margin:0;color:var(--muted);line-height:1.5}
 
-@media(max-width:760px){.app{padding-bottom:72px!important}.bleeding-wrap{width:100%;max-width:none}.bleeding-switch{width:100%;min-width:0}.bleeding-help{max-width:none}.low-capacity-actions{flex-direction:column}.low-capacity-actions .btn{width:100%;flex:auto}.low-question{font-size:30px}.low-today-summary h2{font-size:28px}}
+@media(max-width:760px){.app{padding-bottom:72px!important}.bleeding-wrap{width:100%;max-width:none}.bleeding-switch{width:100%;min-width:0}.bleeding-help{max-width:none}.low-capacity-actions{flex-direction:column}.low-capacity-actions .btn{width:100%;flex:auto}.low-question{font-size:38px}.low-today-summary h2{font-size:28px}}
