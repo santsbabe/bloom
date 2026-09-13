@@ -1,4 +1,5 @@
 (()=>{
+if(!document.querySelector('link[data-bloom-ux]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./ux-fixes.css?v=12';l.dataset.bloomUx='true';document.head.appendChild(l)}
 const $=s=>document.querySelector(s);
 function cycleData(){try{return JSON.parse(localStorage.getItem('bloom.cycle.v1')||'{}')}catch{return {}}}
 function todayISO(){const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`}
