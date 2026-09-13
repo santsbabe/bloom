@@ -73,18 +73,21 @@ Purpose: capture the minimum useful signal on a day when answering questions its
 
 The user must not be required to provide mood, energy, executive-function or other ratings.
 
-Initial prompt:
+Entry screen:
 
-**Do you have capacity for physical symptoms?**
+**Low-energy day**
+
+Supporting copy:
+**No ratings. No explaining. Pick the amount you can manage.**
 
 Available actions:
-- **No. Save.** — immediately records a low-energy check-in with no required symptoms or ratings.
-- **Yes** — reveals a short physical-symptom basket.
+- **Save this as a low-energy day** — immediately records a low-energy check-in with no required symptoms or ratings.
+- **I can tap a few symptoms** — reveals a short physical-symptom basket.
 - **Regular check-in** — exits Low-energy and opens the normal Quick flow without saving anything.
 
-The exit action must be visibly available before the user commits to either Yes or No.
+The regular-check-in exit must be visibly available before the user commits to either save path.
 
-If Yes is selected, show one compact basket only. No categories, accordions or multiple symptom ranges.
+If symptom capture is opened, the user must also have a visible **Back** action that returns to the Low-energy entry screen without saving or retaining accidental symptom selections.
 
 Low-energy short symptom basket:
 - spotting
@@ -97,10 +100,13 @@ Low-energy short symptom basket:
 - sleep disrupted
 - increased hunger / cravings
 
-Helper copy should be short, e.g.:
-**Tap anything that applies. Skip the rest.**
+Symptom heading:
+**Anything physical worth noting?**
 
-Then show one clear **Save** action.
+Helper copy:
+**Tap only what stands out. You can skip this.**
+
+Then show one clear **Save low-energy check-in** action plus **Back**.
 
 Low-energy must not show:
 - note/comment field
@@ -366,20 +372,21 @@ Floral treatment:
 Before telling the user a build works, verify these flows conceptually and in code:
 
 1. No entry today → Today hidden, Check-in visible.
-2. Low-energy → No. Save. → saves without any rating.
-3. Low-energy → Yes → short 9-item symptom basket only → Save.
-4. Low-energy → Regular check-in → exits without saving → Quick flow visible.
-5. Low-energy selections do not leak into later entries.
-6. Quick retains full body/cycle symptom set and core ratings.
-7. Deep retains full body/cycle symptom set, executive/cognitive signals and optional note.
-8. Valid `dd/mm/yyyy` date saves.
-9. Bleeding switch accurately reflects stored state.
-10. Period start automatically counts as a bleeding day, but deleting a period start removes only the automatically tied start-day record as implemented.
-11. Editing restores the correct mode and saved data.
-12. Deleting the only current-day entry hides Today again.
-13. Pattern calculations safely ignore null Low-energy ratings.
-14. Service worker cache version matches deployed runtime assets.
-15. No trial-font watermarks or external placeholder artefacts appear.
+2. Low-energy → Save this as a low-energy day → saves without any rating.
+3. Low-energy → I can tap a few symptoms → short 9-item symptom basket only → Save.
+4. Low-energy symptom basket → Back → returns without saving and clears accidental selections.
+5. Low-energy → Regular check-in → exits without saving → Quick flow visible.
+6. Low-energy selections do not leak into later entries.
+7. Quick retains full body/cycle symptom set and core ratings.
+8. Deep retains full body/cycle symptom set, executive/cognitive signals and optional note.
+9. Valid `dd/mm/yyyy` date saves.
+10. Bleeding switch accurately reflects stored state.
+11. Period start automatically counts as a bleeding day, but deleting a period start removes only the automatically tied start-day record as implemented.
+12. Editing restores the correct mode and saved data.
+13. Deleting the only current-day entry hides Today again.
+14. Pattern calculations safely ignore null Low-energy ratings.
+15. Service worker cache version matches deployed runtime assets.
+16. No trial-font watermarks or external placeholder artefacts appear.
 
 ---
 
