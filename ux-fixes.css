@@ -16,4 +16,11 @@
 .low-save-symptoms{display:none;width:100%;margin-top:18px;min-height:54px}
 #checkinForm.low-mode #cycleSymptomSection.low-show-symptoms .low-save-symptoms{display:block!important}
 
+/* Only low-energy gets the short symptom basket. Quick/deep keep the complete grouped set. */
+#cycleSymptomSection.low-simple-symptoms .symptom-group-title{display:none!important}
+#cycleSymptomSection.low-simple-symptoms .cycle-symptom[data-low-simple="false"]{display:none!important}
+#cycleSymptomSection.low-simple-symptoms .symptom-group{margin-top:0!important;display:contents}
+#cycleSymptomSection.low-simple-symptoms #cycleSymptomGroups{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+#cycleSymptomSection.low-simple-symptoms .tag-grid{display:contents}
+
 @media(max-width:760px){.app{padding-bottom:72px!important}.bleeding-wrap{width:100%;max-width:none}.bleeding-switch{width:100%;min-width:0}.bleeding-help{max-width:none}.low-capacity-actions{flex-direction:column}.low-capacity-actions .btn{width:100%;flex:auto}.low-question{font-size:30px}}
