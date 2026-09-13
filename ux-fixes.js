@@ -1,6 +1,6 @@
 (()=>{
 if(window.__bloomUxLoaded)return;window.__bloomUxLoaded=true;
-if(!document.querySelector('link[data-bloom-ux]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./ux-fixes.css?v=18';l.dataset.bloomUx='true';document.head.appendChild(l)}
+if(!document.querySelector('link[data-bloom-ux]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./ux-fixes.css?v=19';l.dataset.bloomUx='true';document.head.appendChild(l)}
 const $=s=>document.querySelector(s);
 function cycleData(){try{return JSON.parse(localStorage.getItem('bloom.cycle.v1')||'{}')}catch{return {}}}
 function todayISO(){const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`}
@@ -11,9 +11,15 @@ const simpleSymptoms=new Set(['spotting','heavy bleeding','cramps','bloating / f
 function prepareSymptomViews(){document.querySelectorAll('.cycle-symptom').forEach(b=>b.dataset.lowSimple=String(simpleSymptoms.has(b.textContent.trim())))}
 function applySymptomView(low){const section=$('#cycleSymptomSection');if(!section)return;prepareSymptomViews();section.classList.toggle('low-simple-symptoms',!!low);const heading=section.querySelector('.section-label');const helper=section.querySelector('.small');if(low){if(heading)heading.textContent='Physical symptoms';if(helper)helper.textContent='Tap anything that applies. Skip the rest.'}else{if(heading)heading.textContent='Body & cycle symptoms';if(helper)helper.textContent='Optional. Pick what is actually happening today. Bloom tracks these as body signals without assuming a cause.'}}
 function clearLowSelections(){document.querySelectorAll('.cycle-symptom').forEach(b=>{b.classList.remove('sel');b.setAttribute('aria-pressed','false')})}
+function cleanDuplicatePrompts(){
+ const duplicatePhysical=new Set(['temperature dysregulation','palpitations','headache','appetite shift','bleeding / cycle marker','hot flush / night sweat','unusual hunger / cravings']);
+ document.querySelectorAll('#contextTags .tag').forEach(b=>{if(duplicatePhysical.has(b.textContent.trim()))b.remove()});
+ const cycleLabel=[...document.querySelectorAll('#view-cycle .section-label')].find(x=>x.textContent.trim().toLowerCase()==='cycle settings');
+ if(cycleLabel){cycleLabel.style.display='none';if(cycleLabel.nextElementSibling)cycleLabel.nextElementSibling.style.display='none'}
+}
 
 function lowExtraBlock(){const low=$('#lowSection');if(!low)return null;let panel=$('#lowCapacityPanel');if(panel)return panel;panel=document.createElement('div');panel.id='lowCapacityPanel';panel.className='low-capacity-panel';panel.innerHTML='<div class="section-label">Low-energy check-in</div><div class="domain low-capacity-domain"><h3 class="low-question">Do you have capacity for physical symptoms?</h3><div class="low-capacity-actions"><button type="button" class="btn secondary" id="lowNoSymptoms">No. Save.</button><button type="button" class="btn" id="lowYesSymptoms">Yes</button></div></div>';low.appendChild(panel);$('#lowNoSymptoms')?.addEventListener('click',()=>{const form=$('#checkinForm');if(form)form.dataset.lowIncludeSymptoms='false';clearLowSelections();$('#cycleSymptomSection')?.classList.remove('low-show-symptoms');form?.requestSubmit()});$('#lowYesSymptoms')?.addEventListener('click',()=>{const form=$('#checkinForm');if(form)form.dataset.lowIncludeSymptoms='true';applySymptomView(true);$('#cycleSymptomSection')?.classList.add('low-show-symptoms');$('#cycleSymptomSection')?.scrollIntoView({behavior:'smooth',block:'start'})});return panel}
 function syncLowMode({preserveSelections=false}={}){const form=$('#checkinForm'),note=$('#note');if(!form||!note)return;lowExtraBlock();const low=$('#lowMode')?.classList.contains('active');form.classList.toggle('low-mode',!!low);applySymptomView(low);const label=note.previousElementSibling;if(label?.classList.contains('section-label'))label.classList.add('note-label');$('#cycleSymptomSection')?.classList.remove('low-show-symptoms');if(low){form.dataset.lowIncludeSymptoms='false';if(!preserveSelections)clearLowSelections()}else delete form.dataset.lowIncludeSymptoms}
 function enhanceLowMode(){['lowMode','quickMode','deepMode','lowEnergyBtn','openCheckinBtn','backfillBtn','historyBackfillBtn'].forEach(id=>$('#'+id)?.addEventListener('click',()=>setTimeout(()=>syncLowMode(),0)));document.addEventListener('click',e=>{const t=e.target;if(!(t instanceof HTMLElement))return;if(t.matches('.history-actions button')&&t.textContent.trim()==='Edit')setTimeout(()=>syncLowMode({preserveSelections:true}),0)});syncLowMode();setTimeout(()=>syncLowMode(),50)}
-enhanceBleeding();enhanceLowMode();
+enhanceBleeding();cleanDuplicatePrompts();enhanceLowMode();
 })();
