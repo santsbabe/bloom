@@ -8,55 +8,45 @@
 <meta name="apple-mobile-web-app-title" content="Bloom">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Bloom</title>
-<link rel="stylesheet" href="styles.css?v=25">
+<link rel="stylesheet" href="styles.css?v=26">
 </head>
 <body>
-<div class="garden" aria-hidden="true"><div class="glow"></div><div class="leaf leaf-a"></div><div class="leaf leaf-b"></div><div class="leaf leaf-c"></div></div>
+<div class="garden" aria-hidden="true"><div class="glow"></div><div class="botanical botanical-left"></div><div class="botanical botanical-right"></div></div>
 <div class="app-shell">
 <header class="topbar">
-  <div><div class="brand-kicker">Bloom</div><div class="today-date" id="todayDate"></div></div>
-  <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+  <div><div class="brand-word">Bloom</div><div class="today-date" id="todayDate"></div></div>
+  <button class="settings-pill" id="settingsBtn" aria-label="Settings">Settings</button>
 </header>
 <main>
 <section id="baselineScreen" class="screen"></section>
 <section id="todayScreen" class="screen">
+  <div class="home-heading"><span>TODAY</span><span id="cycleBadge" class="cycle-badge" hidden></span></div>
   <div class="home-hero">
     <button id="lotusCheckin" class="lotus-card" aria-label="Check in">
-      <svg class="lotus" viewBox="0 0 360 260" role="img" aria-label="Blooming lotus">
-        <defs>
-          <radialGradient id="g1" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#fff6c8"/><stop offset=".45" stop-color="#ff9e89"/><stop offset="1" stop-color="#d93273"/></radialGradient>
-          <linearGradient id="leafG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f8f78"/><stop offset="1" stop-color="#7ca257"/></linearGradient>
-          <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
-        </defs>
-        <ellipse cx="180" cy="215" rx="145" ry="27" fill="#4d897f" opacity=".18"/>
-        <ellipse cx="102" cy="215" rx="72" ry="22" fill="url(#leafG)" opacity=".7" transform="rotate(-8 102 215)"/>
-        <ellipse cx="258" cy="214" rx="76" ry="23" fill="url(#leafG)" opacity=".62" transform="rotate(9 258 214)"/>
-        <g class="petals" fill="url(#g1)">
-          <path d="M180 191 C135 166 121 119 180 61 C239 119 225 166 180 191Z"/>
-          <path d="M178 194 C123 185 90 150 119 83 C174 112 197 153 178 194Z" opacity=".9"/>
-          <path d="M182 194 C237 185 270 150 241 83 C186 112 163 153 182 194Z" opacity=".9"/>
-          <path d="M171 196 C118 209 71 190 75 125 C135 132 169 157 171 196Z" opacity=".78"/>
-          <path d="M189 196 C242 209 289 190 285 125 C225 132 191 157 189 196Z" opacity=".78"/>
-          <path d="M180 198 C150 205 127 194 130 158 C159 161 176 174 180 198Z" fill="#ffd884"/>
-          <path d="M180 198 C210 205 233 194 230 158 C201 161 184 174 180 198Z" fill="#ffd884"/>
-        </g>
-        <circle cx="180" cy="178" r="28" fill="#ffd84c" opacity=".42" filter="url(#soft)"/>
-      </svg>
+      <div class="lotus-scene" aria-hidden="true">
+        <span class="sun-glow"></span>
+        <span class="pad pad-a"></span><span class="pad pad-b"></span>
+        <span class="petal petal-1"></span><span class="petal petal-2"></span><span class="petal petal-3"></span><span class="petal petal-4"></span><span class="petal petal-5"></span><span class="petal petal-6"></span><span class="petal petal-7"></span>
+        <span class="lotus-centre"></span>
+      </div>
       <span class="lotus-label">CHECK IN</span>
     </button>
     <div id="baselineDoneNote" class="micro-note"></div>
   </div>
+  <section class="meds-home" id="medsStrip"></section>
+  <div class="quick-label">QUICK LOG</div>
   <div class="quick-grid" aria-label="Quick events">
-    <button class="quick-tile" data-quick="nap" aria-label="Log nap or doze"><span class="art moon"></span></button>
-    <button class="quick-tile" data-quick="caffeine" aria-label="Log caffeine or energy drink"><span class="art cup"></span></button>
-    <button class="quick-tile" data-quick="alcohol" aria-label="Log alcohol"><span class="art glass"></span></button>
-    <button class="quick-tile" data-quick="breathing" aria-label="Log breath-holding or forgetting to breathe"><span class="art breath"></span></button>
-    <button class="quick-tile" data-quick="water" aria-label="Log water"><span class="art water"></span></button>
-    <button class="quick-tile" data-quick="sensory-overload" aria-label="Log sensory overload"><span class="art sensory"></span></button>
+    <button class="quick-tile nap" data-quick="nap" aria-label="Log nap or doze"><span class="quick-symbol pillow-symbol"></span></button>
+    <button class="quick-tile caffeine" data-quick="caffeine" aria-label="Log caffeine or energy drink"><span class="quick-symbol mug-symbol"></span></button>
+    <button class="quick-tile alcohol" data-quick="alcohol" aria-label="Log alcohol"><span class="quick-symbol wine-symbol"></span></button>
+    <button class="quick-tile breathing" data-quick="breathing" aria-label="Log breath-holding or forgetting to breathe"><span class="quick-symbol breath-symbol"></span></button>
+    <button class="quick-tile water" data-quick="water" aria-label="Log water"><span class="quick-symbol water-symbol"></span></button>
+    <button class="quick-tile sensory" data-quick="sensory-overload" aria-label="Log sensory overload"><span class="quick-symbol sensory-symbol"></span></button>
   </div>
-  <section class="strip-card" id="medsStrip"></section>
-  <section class="strip-card" id="cycleStrip"></section>
-  <section class="strip-card" id="healthStrip"></section>
+  <section class="context-row">
+    <button class="context-chip" id="cycleHomeBtn"><span class="context-kicker">CYCLE</span><strong id="cycleHomeText">Open cycle</strong></button>
+    <button class="context-chip" id="healthHomeBtn"><span class="context-kicker">APPLE HEALTH</span><strong id="healthHomeText">Import snapshot</strong></button>
+  </section>
 </section>
 <section id="checkinScreen" class="screen"></section>
 <section id="cycleScreen" class="screen"></section>
@@ -64,16 +54,11 @@
 <section id="patternsScreen" class="screen"></section>
 </main>
 <nav class="bottom-nav" aria-label="Bloom navigation">
-<button data-nav="today" class="active"><span>●</span>Today</button>
-<button data-nav="checkin"><span>✦</span>Check-in</button>
-<button data-nav="cycle"><span>◌</span>Cycle</button>
-<button data-nav="history"><span>≋</span>History</button>
-<button data-nav="patterns"><span>⌁</span>Patterns</button>
+<button data-nav="today" class="active">Today</button><button data-nav="checkin">Check-in</button><button data-nav="cycle">Cycle</button><button data-nav="history">History</button><button data-nav="patterns">Patterns</button>
 </nav>
 </div>
 <div id="modal" class="modal-backdrop" hidden><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div id="modalBody"></div></div></div>
-<input id="healthFile" type="file" accept="application/json,.json" hidden>
-<input id="importFile" type="file" accept="application/json,.json" hidden>
-<script src="app.js?v=25"></script>
+<input id="healthFile" type="file" accept="application/json,.json" hidden><input id="importFile" type="file" accept="application/json,.json" hidden>
+<script src="app.js?v=26"></script>
 </body>
 </html>
