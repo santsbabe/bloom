@@ -1,1 +1,9 @@
-{"name":"Bloom","short_name":"Bloom","start_url":"./","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml"}]}
+{
+  "name": "Bloom",
+  "short_name": "Bloom",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf5",
+  "theme_color": "#fffaf5",
+  "description": "Private, local-first pattern tracker and check-in app"
+}
