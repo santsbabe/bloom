@@ -1,7 +1,7 @@
 # Bloom — Master Product & UX Specification
 
 **Status:** Canonical source of truth for product behaviour, UX, visual identity, data handling and deployment.
-**Date:** 13/09/2026
+**Date:** 14/09/2026
 **Primary platform:** iPhone / mobile web PWA, local-first
 **Date format:** dd/mm/yyyy
 **Time format:** HH:mm, 24-hour
@@ -10,7 +10,7 @@
 
 ## 1. Product purpose
 
-Bloom is a local-first pattern-recognition and decision-support app for understanding interactions among ADHD, mood/anxiety, perimenopause, sleep, executive function, sensory load, cognition, physiology and daily functioning.
+Bloom is a local-first pattern-recognition and decision-support app for understanding interactions among ADHD, mood/anxiety, perimenopause, sleep, executive function, sensory load, cognition, physiology, medication context and daily functioning.
 
 Bloom is **not** a fertility tracker, diagnosis engine, medical device or generic mood diary.
 
@@ -71,7 +71,7 @@ If the last current-day entry is deleted:
 
 Purpose: capture the minimum useful signal on a day when answering questions itself feels like work.
 
-The user must not be required to provide mood, energy, executive-function or other ratings.
+The user must not be required to provide mood, energy, executive-function, medication or other ratings/questions.
 
 Entry screen:
 
@@ -109,6 +109,7 @@ Helper copy:
 Then show one clear **Save low-energy check-in** action plus **Back**.
 
 Low-energy must not show:
+- medication-taken question
 - note/comment field
 - mental energy rating
 - mood rating
@@ -121,6 +122,12 @@ Low-energy must not show:
 ### 4.2 Quick
 
 Purpose: useful core signal capture with modest effort.
+
+Required medication context:
+- **Meds taken?**
+- two taps only: **Yes** / **No**
+- no dosage, medication-name, timing or explanation fields in this question
+- the answer is stored as a boolean `medsTaken`
 
 Core ratings:
 - Activation
@@ -138,6 +145,11 @@ No deep executive/cognitive signal tags unless the user switches to Deep.
 
 Purpose: full neurocognitive and contextual capture when the user has capacity.
 
+Required medication context:
+- **Meds taken?**
+- two taps only: **Yes** / **No**
+- answer stored as `medsTaken`
+
 Includes:
 - Activation
 - Mental energy
@@ -151,6 +163,17 @@ Includes:
 - Context / companion signals
 - Full body / cycle symptoms
 - Optional note
+
+### 4.4 Medication question behaviour
+
+- Appears in Quick and Deep only.
+- Never appears in Low-energy.
+- Uses exactly one Yes/No choice, not a slider, scale, free text or multi-option medication questionnaire.
+- Quick/Deep cannot save until Yes or No has been tapped.
+- Editing an existing Quick/Deep entry restores the saved answer when present.
+- Older entries without a `medsTaken` value may be edited, but the user must choose Yes or No before re-saving.
+- The field records whether medication was taken, not whether it worked.
+- Existing separate context such as “medication felt weaker” or “medication felt normal” remains conceptually distinct from `medsTaken`.
 
 ---
 
@@ -244,6 +267,7 @@ For Quick/Deep entries, Today may show:
 - mood
 - interest/reward
 - regulation
+- medication context
 - selected context / body signals
 - cycle day when supported by actual period records
 
@@ -266,6 +290,7 @@ Must support:
 - backfill
 - correct restoration of the original mode when editing
 - restoration of saved symptoms and values
+- restoration of `medsTaken` for Quick/Deep entries when present
 
 Editing a Low-energy entry must reopen the Low-energy flow, not expose hidden legacy rating controls.
 
@@ -284,6 +309,7 @@ Patterns may compare:
 - sleep vs executive functioning
 - repeated executive/cognitive signals
 - repeated physical/cycle symptoms
+- medication taken vs not taken when sufficient comparable data exists
 - medication-felt-weaker vs medication-felt-normal entries when enough data exists
 - cycle timing vs other measures when supported by recorded data
 
@@ -293,6 +319,7 @@ Rules:
 - state association, not cause
 - prefer “not enough repeated structure yet” to inventing a pattern
 - Low-energy entries without ratings must not corrupt averages or correlations
+- medication-taking status must never be interpreted as proof that medication caused an outcome
 
 ---
 
@@ -301,6 +328,9 @@ Rules:
 Primary local entry store: `bloom.entries.v3`
 Legacy migration source: `bloom.entries.v2`
 Cycle store: `bloom.cycle.v1`
+
+Check-in data may include:
+- `medsTaken`: `true`, `false`, or absent/null for historical/Low-energy entries
 
 Requirements:
 - local-first storage
@@ -372,21 +402,22 @@ Floral treatment:
 Before telling the user a build works, verify these flows conceptually and in code:
 
 1. No entry today → Today hidden, Check-in visible.
-2. Low-energy → Save this as a low-energy day → saves without any rating.
+2. Low-energy → Save this as a low-energy day → saves without any rating or medication question.
 3. Low-energy → I can tap a few symptoms → short 9-item symptom basket only → Save.
 4. Low-energy symptom basket → Back → returns without saving and clears accidental selections.
 5. Low-energy → Regular check-in → exits without saving → Quick flow visible.
 6. Low-energy selections do not leak into later entries.
-7. Quick retains full body/cycle symptom set and core ratings.
-8. Deep retains full body/cycle symptom set, executive/cognitive signals and optional note.
-9. Valid `dd/mm/yyyy` date saves.
-10. Bleeding switch accurately reflects stored state.
-11. Period start automatically counts as a bleeding day, but deleting a period start removes only the automatically tied start-day record as implemented.
-12. Editing restores the correct mode and saved data.
-13. Deleting the only current-day entry hides Today again.
-14. Pattern calculations safely ignore null Low-energy ratings.
-15. Service worker cache version matches deployed runtime assets.
-16. No trial-font watermarks or external placeholder artefacts appear.
+7. Quick shows **Meds taken? Yes/No**, requires an answer, retains full body/cycle symptom set and core ratings.
+8. Deep shows **Meds taken? Yes/No**, requires an answer, retains full body/cycle symptom set, executive/cognitive signals and optional note.
+9. Editing Quick/Deep restores `medsTaken` when stored.
+10. Valid `dd/mm/yyyy` date saves.
+11. Bleeding switch accurately reflects stored state.
+12. Period start automatically counts as a bleeding day, but deleting a period start removes only the automatically tied start-day record as implemented.
+13. Editing restores the correct mode and saved data.
+14. Deleting the only current-day entry hides Today again.
+15. Pattern calculations safely ignore null Low-energy ratings.
+16. Service worker cache version matches deployed runtime assets.
+17. No trial-font watermarks or external placeholder artefacts appear.
 
 ---
 
@@ -395,6 +426,7 @@ Before telling the user a build works, verify these flows conceptually and in co
 Any future change that alters:
 - product behaviour
 - check-in logic
+- medication capture
 - symptom taxonomy
 - cycle logic
 - data model
