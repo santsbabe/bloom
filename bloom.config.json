@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "app": {
     "name": "Bloom",
     "platform": "mobile-web-pwa",
@@ -13,14 +13,18 @@
     "firstOpen": ["sleep", "morning-meds", "daily-state"],
     "dailyStateOptions": ["Good", "Okay", "Bad"],
     "badRoute": "support-now",
-    "repeatDailyState": false
+    "repeatDailyState": false,
+    "medicationSetupMayBeDeferred": true,
+    "sleepTimesOptional": true
   },
   "home": {
     "primaryAction": "CHECK IN",
     "primaryVisual": "growing-lotus",
     "lotusProgression": "time-of-day-only",
+    "medicationPlacement": "immediately-below-primary-action",
     "quickEvents": ["nap", "caffeine", "alcohol", "breathing", "water", "sensory-overload"],
-    "quickEventVisibleLabels": false
+    "quickEventVisibleLabels": false,
+    "healthPresentation": "supporting-context-not-primary-card"
   },
   "periodicCheckInGroups": [
     "How I feel",
