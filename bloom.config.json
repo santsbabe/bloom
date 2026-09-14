@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 5,
+  "app": {
+    "name": "Bloom",
+    "platform": "mobile-web-pwa",
+    "localFirst": true,
+    "dateFormat": "dd/mm/yyyy",
+    "timeFormat": "HH:mm",
+    "forbiddenUserFacingTerms": ["low-energy", "quick", "deep"]
+  },
+  "navigation": ["today", "check-in", "cycle", "history", "patterns"],
+  "dailyFlow": {
+    "firstOpen": ["sleep", "morning-meds", "daily-state"],
+    "dailyStateOptions": ["Good", "Okay", "Bad"],
+    "badRoute": "support-now",
+    "repeatDailyState": false
+  },
+  "home": {
+    "primaryAction": "CHECK IN",
+    "primaryVisual": "growing-lotus",
+    "lotusProgression": "time-of-day-only",
+    "quickEvents": ["nap", "caffeine", "alcohol", "breathing", "water", "sensory-overload"],
+    "quickEventVisibleLabels": false
+  },
+  "periodicCheckInGroups": [
+    "How I feel",
+    "How my brain is working",
+    "What my body is doing",
+    "Sensory overload",
+    "Context & triggers",
+    "Regulation",
+    "Needs / what would help",
+    "Nothing major / just logging"
+  ],
+  "medications": {
+    "model": "time-of-day-adherence-and-access",
+    "effectTracking": false,
+    "responses": ["Yes", "No", "I don't remember"],
+    "whyNot": ["Forgot", "Ran out", "Chose not to", "Side effects", "Couldn't access it", "Unavailable / out of stock", "Other"]
+  },
+  "appleHealth": {
+    "bridgeFile": "latest.json",
+    "fields": ["capturedAt", "steps", "restingHeartRate", "heartRateMin", "heartRateMax", "heartRateAverage", "hrv", "respiratoryRate"],
+    "sleepDeferred": true,
+    "missingValuePolicy": "empty-string-or-null-means-unavailable"
+  },
+  "privacy": {
+    "storage": "localStorage",
+    "healthDataInUrl": false,
+    "remoteHealthDatabase": false,
+    "hosting": "private-authenticated-site"
+  }
+}
