@@ -30,12 +30,17 @@ Every screen must make both logical sense and human sense.
 2. **Low-energy really means low-energy:** no hidden questionnaires, required ratings or disguised extra work.
 3. **No traps:** every branch must have an obvious reversible exit before saving.
 4. **Progressive disclosure:** show only the next useful choice; reveal detail only after the user opts in.
-5. **No guilt, shame or judgement:** no streak pressure, missed-day warnings, scolding, punishment or emotionally loaded compliance language.
-6. **Plain human language:** labels must sound like normal questions a person would understand immediately.
-7. **User control:** edits, deletes, backfill and reversal must remain possible.
-8. **Association, not causation:** Bloom may surface descriptive relationships but must not state that hormones, ADHD, medication, sleep or mood caused an outcome.
-9. **Actual records beat estimates:** recorded cycle dates and symptoms take priority over assumptions.
-10. **No redundant capture:** the same symptom or signal should not be asked twice in one flow.
+5. **One question per visual block:** avoid grids of equally weighted cards competing for attention.
+6. **Mode first:** Low-energy / Quick / Deep is the first meaningful choice in the check-in flow and acts as an effort setting.
+7. **Primary-question hierarchy:** after mode choice, the interface should follow a clear sequence of primary question → direct tap(s) → optional detail → save.
+8. **Whitespace before containers:** use spacing and hierarchy before adding more cards, panels or boxes.
+9. **Save and exit must stay obvious:** the user should always know how to finish, go back or switch modes.
+10. **No guilt, shame or judgement:** no streak pressure, missed-day warnings, scolding, punishment or emotionally loaded compliance language.
+11. **Plain human language:** labels must sound like normal questions a person would understand immediately.
+12. **User control:** edits, deletes, backfill and reversal must remain possible.
+13. **Association, not causation:** Bloom may surface descriptive relationships but must not state that hormones, ADHD, medication, sleep or mood caused an outcome.
+14. **Actual records beat estimates:** recorded cycle dates and symptoms take priority over assumptions.
+15. **No redundant capture:** the same symptom or signal should not be asked twice in one flow.
 
 ---
 
@@ -66,6 +71,20 @@ If the last current-day entry is deleted:
 ---
 
 ## 4. Check-in modes
+
+### 4.0 Shared check-in hierarchy
+
+The check-in flow should be visually and logically ordered as follows:
+
+1. **Choose depth:** Low-energy / Quick / Deep.
+2. For Quick and Deep only, the **first question immediately after mode selection is `Meds taken?`** with **Yes / No** taps.
+3. Then show the core ratings for that mode.
+4. Reveal optional detail only after core capture.
+5. Keep the save action obvious at the end of the active flow.
+
+Do not place the medication question below the core ratings, inside context, or near the bottom of the form.
+
+The three modes should feel like effort settings, not separate form sections buried inside a long page.
 
 ### 4.1 Low-energy
 
@@ -123,13 +142,15 @@ Low-energy must not show:
 
 Purpose: useful core signal capture with modest effort.
 
-Required medication context:
-- **Meds taken?**
+Immediately after the user selects **Quick**, the first question is:
+
+**Meds taken?**
 - two taps only: **Yes** / **No**
 - no dosage, medication-name, timing or explanation fields in this question
 - the answer is stored as a boolean `medsTaken`
+- this question appears before Activation, Mental energy, Mood or Interest / reward
 
-Core ratings:
+Core ratings then follow:
 - Activation
 - Mental energy
 - Mood
@@ -137,24 +158,30 @@ Core ratings:
 
 At least one core rating is required.
 
-Then optionally show the full body/cycle symptom set.
+After the core ratings, optionally show the full body/cycle symptom set.
 
 No deep executive/cognitive signal tags unless the user switches to Deep.
+
+The Quick layout should feel like a short pulse-check rather than a dashboard. Avoid presenting the four core ratings as four equally weighted cards if a simpler stacked or sequential layout reads more clearly on mobile.
 
 ### 4.3 Deep
 
 Purpose: full neurocognitive and contextual capture when the user has capacity.
 
-Required medication context:
-- **Meds taken?**
+Immediately after the user selects **Deep**, the first question is:
+
+**Meds taken?**
 - two taps only: **Yes** / **No**
 - answer stored as `medsTaken`
+- this question appears before all ratings
 
-Includes:
+Core ratings follow:
 - Activation
 - Mental energy
 - Mood
 - Interest / reward
+
+Then deeper capture may be progressively disclosed:
 - Executive control
 - Cognitive clarity
 - Emotional regulation
@@ -164,10 +191,22 @@ Includes:
 - Full body / cycle symptoms
 - Optional note
 
+Deep should be organised by meaning rather than database fields. Recommended hierarchy:
+1. Medication status
+2. Core picture
+3. Executive & cognitive detail
+4. Body & cycle symptoms
+5. Context / companion signals
+6. Optional note
+7. Save
+
+Optional Deep sections may be collapsed or revealed progressively to reduce visual load.
+
 ### 4.4 Medication question behaviour
 
 - Appears in Quick and Deep only.
 - Never appears in Low-energy.
+- It is the **first question after the Low-energy / Quick / Deep mode choice**.
 - Uses exactly one Yes/No choice, not a slider, scale, free text or multi-option medication questionnaire.
 - Quick/Deep cannot save until Yes or No has been tapped.
 - Editing an existing Quick/Deep entry restores the saved answer when present.
@@ -388,7 +427,12 @@ Floral treatment:
 - optimise for iPhone first
 - buttons large enough for one-handed use
 - horizontal navigation must not clip essential tabs
+- mode selection must remain visible and easy to understand at the top of the check-in flow
+- the first Quick/Deep question after mode choice must be **Meds taken?**
+- favour stacked/sequential question blocks over dense multi-column card layouts on mobile
 - avoid long scrolls where progressive disclosure can reduce the page
+- optional detail should remain collapsed until needed where this improves clarity
+- use whitespace and section rhythm before adding cards or borders
 - keyboard choice must match input type
 - date entry must accept valid `dd/mm/yyyy`
 - clear focus states
@@ -402,22 +446,26 @@ Floral treatment:
 Before telling the user a build works, verify these flows conceptually and in code:
 
 1. No entry today → Today hidden, Check-in visible.
-2. Low-energy → Save this as a low-energy day → saves without any rating or medication question.
-3. Low-energy → I can tap a few symptoms → short 9-item symptom basket only → Save.
-4. Low-energy symptom basket → Back → returns without saving and clears accidental selections.
-5. Low-energy → Regular check-in → exits without saving → Quick flow visible.
-6. Low-energy selections do not leak into later entries.
-7. Quick shows **Meds taken? Yes/No**, requires an answer, retains full body/cycle symptom set and core ratings.
-8. Deep shows **Meds taken? Yes/No**, requires an answer, retains full body/cycle symptom set, executive/cognitive signals and optional note.
-9. Editing Quick/Deep restores `medsTaken` when stored.
-10. Valid `dd/mm/yyyy` date saves.
-11. Bleeding switch accurately reflects stored state.
-12. Period start automatically counts as a bleeding day, but deleting a period start removes only the automatically tied start-day record as implemented.
-13. Editing restores the correct mode and saved data.
-14. Deleting the only current-day entry hides Today again.
-15. Pattern calculations safely ignore null Low-energy ratings.
-16. Service worker cache version matches deployed runtime assets.
-17. No trial-font watermarks or external placeholder artefacts appear.
+2. Check-in depth selector appears before mode-specific questions.
+3. Low-energy → Save this as a low-energy day → saves without any rating or medication question.
+4. Low-energy → I can tap a few symptoms → short 9-item symptom basket only → Save.
+5. Low-energy symptom basket → Back → returns without saving and clears accidental selections.
+6. Low-energy → Regular check-in → exits without saving → Quick flow visible.
+7. Low-energy selections do not leak into later entries.
+8. Quick → **Meds taken? Yes/No is the first question after mode selection**, requires an answer, then core ratings follow.
+9. Deep → **Meds taken? Yes/No is the first question after mode selection**, requires an answer, then core ratings and progressively disclosed detail follow.
+10. Quick retains full body/cycle symptom set and core ratings.
+11. Deep retains full body/cycle symptom set, executive/cognitive signals and optional note.
+12. Editing Quick/Deep restores `medsTaken` when stored.
+13. Valid `dd/mm/yyyy` date saves.
+14. Bleeding switch accurately reflects stored state.
+15. Period start automatically counts as a bleeding day, but deleting a period start removes only the automatically tied start-day record as implemented.
+16. Editing restores the correct mode and saved data.
+17. Deleting the only current-day entry hides Today again.
+18. Pattern calculations safely ignore null Low-energy ratings.
+19. Service worker cache version matches deployed runtime assets.
+20. No trial-font watermarks or external placeholder artefacts appear.
+21. Mobile Quick/Deep layouts do not regress into dense grids of equal-priority cards when a sequential layout is intended.
 
 ---
 
