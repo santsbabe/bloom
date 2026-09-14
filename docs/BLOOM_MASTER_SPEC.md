@@ -10,9 +10,25 @@
 
 ## 1. Product purpose
 
-Bloom is a local-first pattern-recognition and decision-support app for understanding interactions among ADHD, mood/anxiety, perimenopause, sleep, executive function, sensory load, cognition, physiology, medication context and daily functioning.
+Bloom is a local-first pattern-recognition and decision-support app for understanding interactions among:
 
-Bloom is **not** a fertility tracker, diagnosis engine, medical device or generic mood diary.
+- ADHD / neurodivergent functioning
+- depression
+- anxiety
+- perimenopause / cycle stage
+- sleep
+- cognition and executive function
+- sensory load
+- allergic rhinitis / dust allergy burden
+- post-nasal drip / eye and throat symptoms
+- eczema / skin-barrier inflammation
+- rosacea
+- keratosis pilaris
+- medication context
+- environmental / task / location context
+- daily functioning
+
+Bloom is **not** a fertility tracker, diagnosis engine, medical device, histamine meter or generic mood diary.
 
 The app should reduce cognitive load, not create another obligation.
 
@@ -22,247 +38,574 @@ The app should reduce cognitive load, not create another obligation.
 
 Every screen must make both logical sense and human sense.
 
+Bloom should capture **within-person patterns** without pretending that an association proves cause. In particular, Bloom may investigate whether allergic / inflammatory symptom burden, sleep, sensory load, cycle stage and neurocognitive symptoms move together, but it must not conclude that histamine, inflammation or hormones caused a given symptom.
+
 ---
 
-## 2. UX principles
+## 2. Core measurement model
+
+Bloom must not treat a single morning rating as representative of an entire day when the signal is expected to change by task, sensory input, physical location, social context or time.
+
+The day is therefore split into four layers:
+
+1. **Morning baseline** — the minimum stable context for the day.
+2. **Periodic check-ins** — time-stamped state snapshots available whenever needed.
+3. **Evening wrap-up** — daily functional impact, only when enough of the day has passed for that question to make sense.
+4. **Weekly review** — validated or broader recall-period questions that should not be asked repeatedly throughout a single day.
+
+Low-energy remains an escape hatch that bypasses ordinary capture when answering questions is itself too much.
+
+---
+
+## 3. UX principles
 
 1. **Capacity-aware interaction:** the app must adapt to how much effort the user can tolerate right now.
 2. **Low-energy really means low-energy:** no hidden questionnaires, required ratings or disguised extra work.
 3. **No traps:** every branch must have an obvious reversible exit before saving.
 4. **Progressive disclosure:** show only the next useful choice; reveal detail only after the user opts in.
 5. **One question per visual block:** avoid grids of equally weighted cards competing for attention.
-6. **Mode first:** Low-energy / Quick / Deep is the first meaningful choice in the check-in flow and acts as an effort setting.
-7. **Primary-question hierarchy:** after mode choice, the interface should follow a clear sequence of primary question → direct tap(s) → optional detail → save.
-8. **Whitespace before containers:** use spacing and hierarchy before adding more cards, panels or boxes.
-9. **Save and exit must stay obvious:** the user should always know how to finish, go back or switch modes.
-10. **No guilt, shame or judgement:** no streak pressure, missed-day warnings, scolding, punishment or emotionally loaded compliance language.
-11. **Plain human language:** labels must sound like normal questions a person would understand immediately.
-12. **User control:** edits, deletes, backfill and reversal must remain possible.
-13. **Association, not causation:** Bloom may surface descriptive relationships but must not state that hormones, ADHD, medication, sleep or mood caused an outcome.
-14. **Actual records beat estimates:** recorded cycle dates and symptoms take priority over assumptions.
-15. **No redundant capture:** the same symptom or signal should not be asked twice in one flow.
+6. **Morning baseline stays tiny:** do not let periodic-state questions creep into it.
+7. **Periodic check-ins are state snapshots:** wording should explicitly mean “right now” where appropriate.
+8. **Tap baskets before scales:** where a multi-select symptom/experience list is more interpretable than a numeric rating, use taps.
+9. **No false precision:** avoid 1–5 scales where anchors are vague or where the thing being rated changes heavily across tasks.
+10. **Whitespace before containers:** use spacing and hierarchy before adding more cards, panels or boxes.
+11. **Save and exit must stay obvious:** the user should always know how to finish, go back or switch modes.
+12. **No guilt, shame or judgement:** no streak pressure, missed-day warnings, scolding, punishment or emotionally loaded compliance language.
+13. **Plain human language:** labels must sound like normal questions a person would understand immediately.
+14. **User control:** edits, deletes, backfill and reversal must remain possible.
+15. **Association, not causation:** Bloom may surface descriptive relationships but must not state that hormones, ADHD, histamine, inflammation, medication, sleep or mood caused an outcome.
+16. **Actual records beat estimates:** recorded cycle dates and symptoms take priority over assumptions.
+17. **No redundant capture:** the same symptom or signal should not be asked twice in one flow.
+18. **Massive-overload safe:** every check-in must remain usable when cognition, sensory tolerance and executive capacity are poor.
 
 ---
 
-## 3. Navigation
+## 4. Navigation / primary actions
 
 Primary areas:
-- Check-in
+
 - Today
+- Morning
+- Check now
 - Cycle
 - History
 - Patterns
+- Weekly review
 
-### Today visibility rule
+### Today behaviour
 
-**Today is an output screen, not a starting screen.**
+Today is an output / home screen.
 
-Before a check-in exists for the current day:
-- Today is hidden.
-- The app lands on Check-in.
+It should show at-a-glance:
 
-After a check-in exists for today:
-- Today becomes visible.
-- Today summarises the latest relevant check-in for the day.
+- current date
+- current / estimated cycle phase where supported by recorded data
+- cycle day where supported
+- whether morning baseline is complete
+- most recent periodic snapshot time
+- whether evening wrap-up is available / completed
+- one obvious action: **Check how I’m doing now**
 
-If the last current-day entry is deleted:
-- Today hides again.
+If cycle phase is estimated rather than certain, say so visually, e.g.:
+
+- **Follicular · estimated**
+- **Luteal · estimated**
+- **Cycle phase uncertain**
+
+Do not confidently label follicular / ovulatory / luteal when irregular perimenopausal cycle data do not support that inference.
 
 ---
 
-## 4. Check-in modes
+## 5. Morning baseline
 
-### 4.0 Shared check-in hierarchy
+### 5.1 Purpose
 
-The check-in flow should be visually and logically ordered as follows:
+Capture only the information that is useful as a day-level baseline and does not become meaningless because the task, environment or sensory context changes ten minutes later.
 
-1. **Choose depth:** Low-energy / Quick / Deep.
-2. For Quick and Deep only, the **first question immediately after mode selection is `Meds taken?`** with **Yes / No** taps.
-3. Then show the core ratings for that mode.
-4. Reveal optional detail only after core capture.
-5. Keep the save action obvious at the end of the active flow.
+### 5.2 Flow
 
-Do not place the medication question below the core ratings, inside context, or near the bottom of the form.
+First choose:
 
-The three modes should feel like effort settings, not separate form sections buried inside a long page.
+- **Low-energy**
+- **Quick**
+- **Deep**
 
-### 4.1 Low-energy
+This choice acts as an effort / capacity setting, not a diagnosis or severity label.
 
-Purpose: capture the minimum useful signal on a day when answering questions itself feels like work.
+### 5.3 Low-energy morning flow
 
-The user must not be required to provide mood, energy, executive-function, medication or other ratings/questions.
+Low-energy must remain deliberately tiny.
 
 Entry screen:
 
 **Low-energy day**
 
 Supporting copy:
+
 **No ratings. No explaining. Pick the amount you can manage.**
 
 Available actions:
-- **Save this as a low-energy day** — immediately records a low-energy check-in with no required symptoms or ratings.
-- **I can tap a few symptoms** — reveals a short physical-symptom basket.
-- **Regular check-in** — exits Low-energy and opens the normal Quick flow without saving anything.
 
-The regular-check-in exit must be visibly available before the user commits to either save path.
+- **Save this as a low-energy day**
+- **I can tap a few symptoms**
+- **Regular check-in**
 
-If symptom capture is opened, the user must also have a visible **Back** action that returns to the Low-energy entry screen without saving or retaining accidental symptom selections.
+Low-energy must NOT require:
 
-Low-energy short symptom basket:
-- spotting
-- heavy bleeding
-- cramps
-- bloating / fluid retention
-- headache / migraine
-- hot flush
-- night sweat
-- sleep disrupted
-- increased hunger / cravings
+- medication question
+- sleep question
+- mood
+- anxiety
+- executive function
+- allergy questions
+- skin questions
+- sensory questions
+- note
+- weekly-style screening
 
-Symptom heading:
-**Anything physical worth noting?**
+If the user opens symptoms, show a short mixed physical-symptom basket and a visible **Back** action. Do not privilege menstrual symptoms at the top.
 
-Helper copy:
-**Tap only what stands out. You can skip this.**
+### 5.4 Quick / Deep morning minimum
 
-Then show one clear **Save low-energy check-in** action plus **Back**.
+For both Quick and Deep, the morning baseline is:
 
-Low-energy must not show:
-- medication-taken question
-- note/comment field
-- mental energy rating
-- mood rating
-- functioning/executive rating
-- context tags
-- brain/executive tags
-- duplicate cycle questions
-- required fields beyond date/time already supplied automatically
+1. **Meds taken?** — Yes / No
+2. **How did you sleep?** — **Rested / Okay / Poorly / Barely slept**
+3. Save morning baseline
 
-### 4.2 Quick
+No other ordinary state questions are required in the morning baseline.
 
-Purpose: useful core signal capture with modest effort.
+Medication remains absent from Low-energy.
 
-Immediately after the user selects **Quick**, the first question is:
+### 5.5 Medication behaviour
 
-**Meds taken?**
-- two taps only: **Yes** / **No**
-- no dosage, medication-name, timing or explanation fields in this question
-- the answer is stored as a boolean `medsTaken`
-- this question appears before Activation, Mental energy, Mood or Interest / reward
+- The first Quick/Deep morning question is **Meds taken?**
+- Two taps only: **Yes / No**
+- Stored as `medsTaken` boolean.
+- Do not ask dosage, name or explanation in the baseline question.
+- Editing restores the stored answer.
+- Separate optional context such as **medication felt normal / weaker than usual** belongs in periodic/deep context, not in the morning baseline.
 
-Core ratings then follow:
-- Activation
-- Mental energy
-- Mood
-- Interest / reward
+### 5.6 Sleep behaviour
 
-At least one core rating is required.
+Do not use an unanchored numeric scale.
 
-After the core ratings, optionally show the full body/cycle symptom set.
+Use:
 
-No deep executive/cognitive signal tags unless the user switches to Deep.
+- Rested
+- Okay
+- Poorly
+- Barely slept
 
-The Quick layout should feel like a short pulse-check rather than a dashboard. Avoid presenting the four core ratings as four equally weighted cards if a simpler stacked or sequential layout reads more clearly on mobile.
-
-### 4.3 Deep
-
-Purpose: full neurocognitive and contextual capture when the user has capacity.
-
-Immediately after the user selects **Deep**, the first question is:
-
-**Meds taken?**
-- two taps only: **Yes** / **No**
-- answer stored as `medsTaken`
-- this question appears before all ratings
-
-Core ratings follow:
-- Activation
-- Mental energy
-- Mood
-- Interest / reward
-
-Then deeper capture may be progressively disclosed:
-- Executive control
-- Cognitive clarity
-- Emotional regulation
-- Sleep restoration
-- Brain / executive signals
-- Context / companion signals
-- Full body / cycle symptoms
-- Optional note
-
-Deep should be organised by meaning rather than database fields. Recommended hierarchy:
-1. Medication status
-2. Core picture
-3. Executive & cognitive detail
-4. Body & cycle symptoms
-5. Context / companion signals
-6. Optional note
-7. Save
-
-Optional Deep sections may be collapsed or revealed progressively to reduce visual load.
-
-### 4.4 Medication question behaviour
-
-- Appears in Quick and Deep only.
-- Never appears in Low-energy.
-- It is the **first question after the Low-energy / Quick / Deep mode choice**.
-- Uses exactly one Yes/No choice, not a slider, scale, free text or multi-option medication questionnaire.
-- Quick/Deep cannot save until Yes or No has been tapped.
-- Editing an existing Quick/Deep entry restores the saved answer when present.
-- Older entries without a `medsTaken` value may be edited, but the user must choose Yes or No before re-saving.
-- The field records whether medication was taken, not whether it worked.
-- Existing separate context such as “medication felt weaker” or “medication felt normal” remains conceptually distinct from `medsTaken`.
+This is a baseline sleep-restoration signal, not an exact sleep-duration calculation.
 
 ---
 
-## 5. Body & cycle symptoms
+## 6. Periodic check-ins — available through the day
 
-Quick and Deep retain the full grouped symptom set.
+### 6.1 Purpose
 
-### Full symptom taxonomy
+Periodic check-ins capture **state**, not “how the whole day is”.
 
-**Bleeding**
-- spotting
-- light bleeding
-- heavy bleeding
-- clots / flooding
+Each snapshot:
 
-**Pain & body**
-- cramps
-- pelvic pain / pressure
-- breast tenderness
-- bloating / fluid retention
+- timestamps automatically
+- may optionally capture context / location / task
+- must be fast enough to use repeatedly
+- must allow multi-select tap baskets
+- must not require the user to answer every category
+
+Primary CTA on Today:
+
+**Check how I’m doing now**
+
+### 6.2 Recommended entry design
+
+Do NOT dump every domain onto one long form.
+
+Start with one screen:
+
+**What’s going on right now?**
+
+Show large tap-cards / chips for domains:
+
+- Mood
+- Anxiety
+- Mental capacity
+- ADHD / executive stuff
+- Sensory overload
+- Allergy / sinus
+- Skin
+- Body / perimenopause
+- Context / exposure
+- Medication effect
+- Nothing major / just logging
+
+Tapping a domain opens only that basket.
+
+The user can open several domains in one snapshot.
+
+Save remains sticky / visible.
+
+### 6.3 Mood
+
+Avoid vague numeric scales.
+
+Suggested taps:
+
+- Good
+- Okay
+- Low
+- Very low
+
+### 6.4 Anxiety
+
+Suggested taps:
+
+- Calm
+- Noticeable
+- High
+- Overwhelming
+
+### 6.5 Mental capacity
+
+Suggested taps:
+
+- Plenty
+- Enough
+- Limited
+- Very little
+
+### 6.6 Reward / anhedonia
+
+Suggested question:
+
+**Does anything feel rewarding right now?**
+
+- Yes
+- A little
+- No
+
+This remains optional and may sit under Mood / ADHD detail rather than the first periodic screen.
+
+---
+
+## 7. ADHD / executive-function experience basket
+
+The following are **self-described experience tags**, not formal diagnoses, and should not be presented as scientifically definitive ADHD subtypes.
+
+The app should allow taps for current or recent ADHD-like experiences drawn from the user-provided reference image and prior Bloom requirements.
+
+### 7.1 Core executive / cognitive difficulty tags
+
+- starting / task initiation
+- sustaining attention
+- switching tasks
+- prioritising
+- sequencing / organising
+- working memory
+- remembering what I’m doing
+- finding words
+- processing speed / thinking quickly
+- decision-making
+- impulsivity / acting before thinking
+- restlessness / need to move
+
+### 7.2 Lived-experience ADHD tags
+
+- **body doubling needed**
+- **time blindness**
+- **rejection sensitivity**
+- **hyperfocus**
+- **task paralysis**
+- **revenge bedtime procrastination**
+- **doom piles / clutter accumulation**
+- **object permanence / out-of-sight problem**
+- **wall of awful / task dread**
+- **sensory overload**
+- **emotional flooding**
+- **analysis paralysis**
+- **waiting mode**
+- **interest-based activation**
+- **shutdown / words stop coming**
+- **masking / performing okay externally**
+- **justice sensitivity**
+- **stimming / regulating movement**
+- **info-dumping / urge to share intensely**
+- **ADHD tax / forgotten fees, duplicates, subscriptions, late costs**
+
+### 7.3 Storage / analysis rules
+
+- Store tags as discrete strings, not a summed “ADHD severity score”.
+- Do not infer a diagnosis from tags.
+- Pattern analysis may report repeated co-occurrence with sleep, cycle phase, sensory load, allergy burden, anxiety, mood or context.
+- Do not imply that a colloquial label is a validated clinical construct.
+
+---
+
+## 8. Sensory overload basket
+
+Sensory overload is a parent category with specific tap-level subtypes.
+
+Question:
+
+**What’s too much right now?**
+
+Allow multi-select:
+
+- sound / noise
+- multiple conversations
+- sudden / loud sound
+- bright light / glare
+- flicker
+- visual clutter / busy screens
+- touch / clothing / seams / skin contact
+- people touching me
+- smell / perfume / cleaning products
+- food smells / smoke
+- temperature too hot
+- temperature too cold
+- rapid temperature change
+- crowding / people too close
+- movement / motion around me
+- travel / vehicle motion
+- hunger / thirst / pain / body sensations
+- palpitations / nausea / bladder or internal-body discomfort
+- need for pressure / proprioceptive input
+- need to move / restless body
+- too many inputs at once
+- social input / people talking at me
+- conversation / demand load
+- screen / notification / message overload
+- food texture / mouthfeel / strong taste
+- none
+
+Store both:
+
+- `sensoryOverload = true/false`
+- selected subtype tags
+
+This allows broad pattern detection and subtype analysis.
+
+---
+
+## 9. Allergy / inflammatory symptom basket
+
+Bloom must track symptoms without pretending to measure blood histamine or systemic inflammation.
+
+### 9.1 Allergy / sinus / eye / throat
+
+Multi-select:
+
+- blocked / congested nose
+- runny nose
+- sneezing
+- post-nasal drip
+- scratchy / itchy throat
+- itchy / watery eyes
+- sinus pressure
+- itchy skin
+- none noticeable
+
+Optional overall burden:
+
+- Mild
+- Clearly bothering me
+- Severe
+
+Do not require an overall burden tap if symptom-level selections are sufficient.
+
+### 9.2 Allergy medication
+
+Optional context field, separate from the primary psychiatric / ADHD medication question:
+
+**Allergy medication taken?**
+
+- Yes
+- No
+- Not due
+
+This should remain optional unless future evidence shows it materially improves the app’s pattern value.
+
+---
+
+## 10. Skin symptom basket
+
+Multi-select:
+
+- rosacea flushing / redness
+- facial heat
+- facial burning / stinging
+- eczema itch
+- eczema dry / inflamed patches
+- general skin itching
+- keratosis pilaris noticeably worse
+- none
+
+Do not collapse rosacea, eczema and keratosis pilaris into one “histamine” score.
+
+---
+
+## 11. Body / perimenopause symptom basket
+
+Do not list bleeding, cramps and bloating first by default.
+
+Recommended ordering should prioritise broad lived impact and avoid implying that perimenopause is mainly menstrual.
+
+Suggested basket:
+
+- appetite / craving change
+- fatigue / body heaviness
 - headache / migraine
+- hot flush
 - joint / muscle aches
-
-**Temperature & sleep**
-- hot flush
+- nausea / digestive change
 - night sweat
-- temperature swings
-- sleep disrupted
-
-**Nervous system**
 - palpitations
+- sleep disruption
+- temperature swings
+- breast tenderness
 - dizziness / light-headedness
-
-**Appetite & gut**
-- increased hunger / cravings
-- nausea / digestive changes
-
-**Sexual / genitourinary**
-- vaginal dryness / discomfort
 - libido change
+- vaginal / urogenital discomfort
+- pelvic symptoms
+- bleeding / spotting change
+- fluid retention / bloating
+- cramps
 
-Avoid asking the same physical symptom again in context tags if it already exists here.
+Allow multiple taps.
+
+Quick/periodic views should not force category headings if a flat tap basket is easier during overload.
 
 ---
 
-## 6. Cycle tracking
+## 12. Context / exposure basket
+
+Optional, multi-select:
+
+- dust exposure / cleaning
+- musty / damp environment
+- outdoors / pollen
+- heat
+- cold
+- alcohol
+- spicy food
+- unusual food reaction
+- illness / infection
+- high stress
+- social demand
+- cognitive / work demand
+- noisy environment
+- bright / visually busy environment
+- unfamiliar location
+- travel
+- poor sleep carry-over
+- none obvious
+
+Optional user-added note remains available but should never be required.
+
+---
+
+## 13. Medication-effect context
+
+Optional periodic / Deep context only:
+
+- medication felt normal
+- medication felt weaker than usual
+
+This is separate from `medsTaken`.
+
+Do not make this a required daily question.
+
+---
+
+## 14. Evening wrap-up
+
+Evening-only because daily functional impact makes little sense before the day has happened.
+
+Question:
+
+**How much did symptoms get in the way today?**
+
+Suggested taps:
+
+- Not much
+- Somewhat
+- A lot
+- I basically couldn’t function normally
+
+Optional follow-up only if useful:
+
+**Where did it get in the way?**
+
+- work
+- parenting / home
+- social interaction
+- self-care
+- errands / admin
+- sleep / winding down
+
+Do not ask this as part of the morning baseline.
+
+---
+
+## 15. Weekly review
+
+Weekly review is the correct place for broader recall-period assessment.
+
+### 15.1 Depression / anxiety
+
+Use an ultra-brief validated approach where licensing / wording permits, with a weekly recall period.
+
+Do not repeatedly ask diagnostic screener wording throughout a single day.
+
+### 15.2 ADHD / functioning
+
+Weekly review may summarise recurring problems with:
+
+- starting
+- attention
+- organisation
+- working memory
+- impulsivity / restlessness
+- emotional regulation
+- task paralysis / avoidance
+- hyperfocus / difficulty disengaging
+
+### 15.3 Allergy / inflammatory review
+
+Weekly questions may include:
+
+- Were allergy symptoms worse than usual this week?
+- Were skin symptoms worse than usual?
+- Was sleep disrupted by nasal, throat or itch symptoms?
+- Did you need extra allergy treatment?
+- Was there an obvious exposure pattern?
+
+### 15.4 Perimenopause review
+
+Weekly review may capture meaningful change in:
+
+- temperature / vasomotor symptoms
+- sleep
+- cognition
+- mood / anxiety
+- body symptoms
+- skin / urogenital symptoms
+- cycle behaviour
+
+### 15.5 Weekly review should remain skippable
+
+No shame or penalty for missed weekly reviews.
+
+---
+
+## 16. Cycle tracking
 
 Cycle tracking is based on real records, not regular-cycle assumptions.
 
 Required capabilities:
+
 - record period start today
 - add a historical period-start date manually
 - record whether menstrual bleeding occurred today
@@ -272,209 +615,334 @@ Required capabilities:
 - edit/delete historical period-start records
 - prevent future period-start or bleeding dates
 
-### Bleeding control
+### 16.1 Phase display
+
+Bloom should visually show an estimated phase on login / Today where supported:
+
+- Follicular
+- Ovulatory / around ovulation, only if defensible
+- Luteal
+- Menstrual
+- Phase uncertain
+
+Because perimenopausal cycles may be irregular:
+
+- label estimates as estimates
+- actual bleeding records take priority
+- never pretend phase certainty from a generic 28-day assumption
+
+### 16.2 Bleeding control
 
 Use a real Yes/No switch labelled:
 
 **Bleeding today**
 
-Helper text should explain:
+Helper:
+
 **Did you have menstrual bleeding today? “Period starts today” is only for day 1 of a new period.**
 
-Do not use unexplained wording such as “Toggle bleeding today”.
+---
 
-### Estimates
+## 17. Today screen
 
-Perimenopause-aware rule:
-- do not assume a regular cycle
-- actual recorded dates take priority
-- estimates are optional and secondary
-- do not show controls that imply behaviour if the app does not actually use them
+Today should feel like a calm command centre, not a dashboard full of cards.
+
+Recommended structure:
+
+### Top strip
+
+- Bloom wordmark
+- date
+- cycle phase / cycle day visual
+
+### Morning baseline state
+
+Compact line, e.g.:
+
+**Morning · meds ✓ · sleep: Poorly**
+
+### Primary action
+
+Large button:
+
+**Check how I’m doing now**
+
+### Recent snapshots
+
+Show the last 1–3 periodic snapshots as tiny summary strips, e.g.:
+
+**11:20 · sensory + allergy + limited capacity**
+
+No giant cards.
+
+### Evening
+
+After an appropriate time / when manually opened:
+
+**Wrap up today**
+
+### Weekly
+
+When due:
+
+small non-blocking prompt:
+
+**Weekly review available**
 
 ---
 
-## 7. Today screen
+## 18. History
 
-Today summarises what was actually captured.
+History must distinguish entry type:
 
-For Quick/Deep entries, Today may show:
-- activation
-- mental energy
-- effort cost
-- executive functioning
-- cognitive clarity
-- mood
-- interest/reward
-- regulation
-- medication context
-- selected context / body signals
-- cycle day when supported by actual period records
+- Morning baseline
+- Periodic snapshot
+- Evening wrap-up
+- Weekly review
+- Low-energy
 
-For Low-energy entries:
-- keep the summary minimal
-- do not render a wall of empty rating placeholders
-- show that a low-energy check-in occurred
-- show selected physical symptoms, if any
-- otherwise show no invented interpretation
+History supports:
 
----
-
-## 8. History
-
-Must support:
 - chronological list
-- mode label: Low-energy / Quick / Deep
 - edit
 - delete
 - backfill
-- correct restoration of the original mode when editing
-- restoration of saved symptoms and values
-- restoration of `medsTaken` for Quick/Deep entries when present
-
-Editing a Low-energy entry must reopen the Low-energy flow, not expose hidden legacy rating controls.
+- restoration of saved taps / values
+- clear timestamp
+- no conflation of multiple same-day snapshots into one entry
 
 ---
 
-## 9. Patterns
+## 19. Patterns
 
-Ranges:
-- 14 entries
-- 30 entries
-- 90 entries
+Pattern analysis should use the layered data model.
 
-Patterns may compare:
-- activation vs mood
-- mental energy vs reward
-- sleep vs executive functioning
-- repeated executive/cognitive signals
-- repeated physical/cycle symptoms
-- medication taken vs not taken when sufficient comparable data exists
-- medication-felt-weaker vs medication-felt-normal entries when enough data exists
-- cycle timing vs other measures when supported by recorded data
+Examples of valid descriptive questions:
+
+- Does poor sleep tend to precede more sensory overload snapshots?
+- Do allergy-heavy snapshots coincide with lower mental capacity?
+- Are certain sensory subtypes repeatedly associated with anxiety or shutdown?
+- Do rosacea / eczema flares cluster with heat, dust, stress or cycle phase?
+- Do “medication felt weaker” snapshots cluster with poor sleep or particular cycle phases?
+- Are task paralysis / waiting mode / analysis paralysis more common in certain contexts?
+- Do late-day functioning problems follow mornings with poor sleep?
+- Do certain estimated cycle phases coincide with increased sensory, cognitive or allergy burden?
 
 Rules:
-- require sufficient data before surfacing claims
-- use descriptive language
-- state association, not cause
-- prefer “not enough repeated structure yet” to inventing a pattern
-- Low-energy entries without ratings must not corrupt averages or correlations
-- medication-taking status must never be interpreted as proof that medication caused an outcome
+
+- require sufficient repeated data
+- association, not causation
+- never create a “histamine score” from symptom clusters
+- never create a global ADHD severity score from colloquial experience tags
+- low-energy entries without ratings must not corrupt averages
+- perimenopausal phase estimates must be labelled as estimates
 
 ---
 
-## 10. Data & local-first behaviour
+## 20. Data model
 
-Primary local entry store: `bloom.entries.v3`
-Legacy migration source: `bloom.entries.v2`
-Cycle store: `bloom.cycle.v1`
+Primary local stores may evolve beyond the original `bloom.entries.v3` as the layered model is implemented.
 
-Check-in data may include:
-- `medsTaken`: `true`, `false`, or absent/null for historical/Low-energy entries
+At minimum, each entry should include:
 
-Requirements:
-- local-first storage
-- JSON export/import
-- import check-ins and cycle records
-- preserve existing local data where possible
-- no cloud account required for normal use
-- changes must survive PWA/service-worker refreshes without mismatched old/new scripts
+- `id`
+- `entryType`: `morning` | `snapshot` | `evening` | `weekly` | `low`
+- `date`
+- `time`
+- `createdAt`
+
+Morning fields may include:
+
+- `mode`
+- `medsTaken`
+- `sleepRestoration`
+
+Periodic fields may include:
+
+- `moodState`
+- `anxietyState`
+- `mentalCapacity`
+- `rewardState`
+- `adhdTags[]`
+- `sensoryOverload`
+- `sensoryTags[]`
+- `allergyTags[]`
+- `allergyBurden`
+- `allergyMedication`
+- `skinTags[]`
+- `bodyTags[]`
+- `contextTags[]`
+- `medicationEffect`
+- `note`
+
+Evening fields may include:
+
+- `functionalImpact`
+- `impactDomains[]`
+
+Cycle remains separately stored so actual cycle records are not duplicated unnecessarily.
 
 ---
 
-## 11. Visual identity
+## 21. Simplified UI for massive system overload
+
+### 21.1 Design goal
+
+The user should never have to scan a giant form to work out where to begin.
+
+### 21.2 Morning
+
+Single vertical screen:
+
+**How much can you manage?**
+
+[ Low-energy ] [ Quick ] [ Deep ]
+
+If Quick/Deep:
+
+**Meds taken?**
+[ Yes ] [ No ]
+
+**How did you sleep?**
+[ Rested ] [ Okay ] [ Poorly ] [ Barely slept ]
+
+[ Save morning ]
+
+That is the entire baseline.
+
+### 21.3 Periodic snapshot
+
+Screen 1:
+
+**What’s going on right now?**
+
+Large tappable domain tiles:
+
+[ Mood ]
+[ Anxiety ]
+[ Mental capacity ]
+[ ADHD / executive ]
+[ Sensory overload ]
+[ Allergy / sinus ]
+[ Skin ]
+[ Body / peri ]
+[ Context ]
+[ Medication effect ]
+
+Each tile opens a bottom sheet / inline basket of taps.
+
+Selected domains show a small tick / count.
+
+Sticky actions:
+
+[ Save snapshot ]   [ Cancel ]
+
+### 21.4 Reduce reading during overload
+
+- icons + short labels
+- no paragraphs in active check-in
+- optional help behind `?`
+- no card-within-card layouts
+- no long explanatory copy between tap groups
+- no requirement to open domains that are irrelevant
+- use persistent selected-state styling
+- support one-handed taps
+- allow immediate save after only one domain is captured
+
+### 21.5 Sensory overload UI
+
+Sensory overload opens a flat tap basket first, grouped visually only when useful.
+
+Do not require the user to navigate to separate pages for sound vs light vs touch.
+
+### 21.6 ADHD UI
+
+ADHD / executive opens with the most common actionable tags first:
+
+- can’t start
+- can’t focus
+- can’t switch
+- decision stuck
+- overwhelmed
+- hyperfocused
+- shutdown
+- emotional flooding
+
+A **More ADHD experiences** disclosure reveals the longer lived-experience list such as body doubling, waiting mode, wall of awful, doom piles, time blindness, etc.
+
+This prevents the 20-item reference list from becoming another overload source.
+
+### 21.7 Evening
+
+One question first:
+
+**How much did symptoms get in the way today?**
+
+Optional follow-up domains only if the user wants them.
+
+### 21.8 Weekly
+
+Weekly review is its own guided flow, never appended to a periodic snapshot.
+
+---
+
+## 22. Visual identity
 
 The product name is simply **Bloom**.
 
 Avoid:
-- “Bloom · pattern tracker”
+
 - fertility-app clichés
 - clinical dashboard beige
 - generic rounded-card SaaS styling
+- dense grids
 - flowers pasted awkwardly over content
 - fixed floral artwork obscuring text
 - excessive serif typography
 
-### Canva source design
+Use the existing Bloom floral / painterly identity, white canvas, hot pink / coral / orange / teal / olive / bright yellow / plum accents, and strong whitespace.
 
-Design ID: `DAHU8LlDhaQ`
-
-Use the floral artwork, palette, structure and whimsical invitation feel as the visual basis while adapting it to app usability.
-
-Palette direction:
-- hot pink / coral
-- orange
-- teal
-- olive / chartreuse
-- bright yellow
-- dark plum
-- white canvas
-
-Typography:
-- Brasika-style display treatment for the Bloom masthead where licensing/use is valid
-- clean readable sans-serif for interaction text and subheadings
-- no trial/watermarked fonts
-
-Floral treatment:
-- substantial but decorative
-- must not obscure content
-- must not float as a random slab at the bottom
-- mobile-safe
+The interface should feel lively and human while the active interaction itself stays calm.
 
 ---
 
-## 12. Mobile interaction rules
+## 23. Regression rules
 
-- optimise for iPhone first
-- buttons large enough for one-handed use
-- horizontal navigation must not clip essential tabs
-- mode selection must remain visible and easy to understand at the top of the check-in flow
-- the first Quick/Deep question after mode choice must be **Meds taken?**
-- favour stacked/sequential question blocks over dense multi-column card layouts on mobile
-- avoid long scrolls where progressive disclosure can reduce the page
-- optional detail should remain collapsed until needed where this improves clarity
-- use whitespace and section rhythm before adding cards or borders
-- keyboard choice must match input type
-- date entry must accept valid `dd/mm/yyyy`
-- clear focus states
-- no accidental save traps
-- obvious escape/reversal from every branch
+Before telling the user a build works, verify:
 
----
-
-## 13. Regression rules
-
-Before telling the user a build works, verify these flows conceptually and in code:
-
-1. No entry today → Today hidden, Check-in visible.
-2. Check-in depth selector appears before mode-specific questions.
-3. Low-energy → Save this as a low-energy day → saves without any rating or medication question.
-4. Low-energy → I can tap a few symptoms → short 9-item symptom basket only → Save.
-5. Low-energy symptom basket → Back → returns without saving and clears accidental selections.
-6. Low-energy → Regular check-in → exits without saving → Quick flow visible.
-7. Low-energy selections do not leak into later entries.
-8. Quick → **Meds taken? Yes/No is the first question after mode selection**, requires an answer, then core ratings follow.
-9. Deep → **Meds taken? Yes/No is the first question after mode selection**, requires an answer, then core ratings and progressively disclosed detail follow.
-10. Quick retains full body/cycle symptom set and core ratings.
-11. Deep retains full body/cycle symptom set, executive/cognitive signals and optional note.
-12. Editing Quick/Deep restores `medsTaken` when stored.
-13. Valid `dd/mm/yyyy` date saves.
-14. Bleeding switch accurately reflects stored state.
-15. Period start automatically counts as a bleeding day, but deleting a period start removes only the automatically tied start-day record as implemented.
-16. Editing restores the correct mode and saved data.
-17. Deleting the only current-day entry hides Today again.
-18. Pattern calculations safely ignore null Low-energy ratings.
-19. Service worker cache version matches deployed runtime assets.
-20. No trial-font watermarks or external placeholder artefacts appear.
-21. Mobile Quick/Deep layouts do not regress into dense grids of equal-priority cards when a sequential layout is intended.
+1. Morning baseline never grows beyond Mode → meds (Quick/Deep only) → sleep → save unless explicitly approved later.
+2. Low-energy has no medication or sleep requirement.
+3. Periodic check-ins are available at any time and timestamp separately.
+4. Multiple periodic snapshots can exist on the same day.
+5. Periodic questions use “right now” framing where appropriate.
+6. Sensory overload supports subtype taps.
+7. ADHD experiences are stored as tags, not converted to a false severity score.
+8. Allergy symptoms are not labelled “histamine level”.
+9. Rosacea / eczema / KP are not merged into a histamine score.
+10. Body/perimenopause lists do not automatically foreground bleeding/cramps/bloating.
+11. Cycle phase shown on Today is explicitly estimated when uncertain.
+12. Evening functional impact is not asked as a morning question.
+13. Weekly review remains separate from daily snapshots.
+14. Editing restores all stored state correctly.
+15. Service-worker cache version matches deployed runtime assets.
+16. Mobile interaction avoids dense equal-priority card grids.
+17. A snapshot can be saved after capturing only one relevant domain.
+18. No trial-font watermarks or placeholder artefacts appear.
 
 ---
 
-## 14. Change-management rule
+## 24. Change-management rule
 
 Any future change that alters:
-- product behaviour
-- check-in logic
+
+- morning baseline
+- periodic snapshot logic
+- evening wrap-up
+- weekly review
 - medication capture
+- ADHD tag taxonomy
+- sensory taxonomy
+- allergy / skin taxonomy
 - symptom taxonomy
 - cycle logic
 - data model
