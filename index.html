@@ -8,45 +8,46 @@
 <meta name="apple-mobile-web-app-title" content="Bloom">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Bloom</title>
-<link rel="stylesheet" href="styles.css?v=26">
+<link rel="stylesheet" href="styles.css?v=27">
 </head>
 <body>
-<div class="garden" aria-hidden="true"><div class="glow"></div><div class="botanical botanical-left"></div><div class="botanical botanical-right"></div></div>
+<div class="garden" aria-hidden="true">
+  <div class="glow"></div>
+  <div class="leaf leaf-a"></div>
+  <div class="leaf leaf-b"></div>
+  <div class="leaf leaf-c"></div>
+</div>
 <div class="app-shell">
 <header class="topbar">
-  <div><div class="brand-word">Bloom</div><div class="today-date" id="todayDate"></div></div>
-  <button class="settings-pill" id="settingsBtn" aria-label="Settings">Settings</button>
+  <div>
+    <div class="brand-kicker">Bloom</div>
+    <div class="today-date" id="todayDate"></div>
+  </div>
+  <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
 </header>
 <main>
 <section id="baselineScreen" class="screen"></section>
 <section id="todayScreen" class="screen">
-  <div class="home-heading"><span>TODAY</span><span id="cycleBadge" class="cycle-badge" hidden></span></div>
   <div class="home-hero">
     <button id="lotusCheckin" class="lotus-card" aria-label="Check in">
-      <div class="lotus-scene" aria-hidden="true">
-        <span class="sun-glow"></span>
-        <span class="pad pad-a"></span><span class="pad pad-b"></span>
-        <span class="petal petal-1"></span><span class="petal petal-2"></span><span class="petal petal-3"></span><span class="petal petal-4"></span><span class="petal petal-5"></span><span class="petal petal-6"></span><span class="petal petal-7"></span>
-        <span class="lotus-centre"></span>
+      <div class="lotus-frame">
+        <img class="lotus-photo" alt="" src="data:image/jpeg;base64,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" />
+        <span class="sr-only">Check in</span>
       </div>
-      <span class="lotus-label">CHECK IN</span>
     </button>
     <div id="baselineDoneNote" class="micro-note"></div>
   </div>
-  <section class="meds-home" id="medsStrip"></section>
-  <div class="quick-label">QUICK LOG</div>
-  <div class="quick-grid" aria-label="Quick events">
-    <button class="quick-tile nap" data-quick="nap" aria-label="Log nap or doze"><span class="quick-symbol pillow-symbol"></span></button>
-    <button class="quick-tile caffeine" data-quick="caffeine" aria-label="Log caffeine or energy drink"><span class="quick-symbol mug-symbol"></span></button>
-    <button class="quick-tile alcohol" data-quick="alcohol" aria-label="Log alcohol"><span class="quick-symbol wine-symbol"></span></button>
-    <button class="quick-tile breathing" data-quick="breathing" aria-label="Log breath-holding or forgetting to breathe"><span class="quick-symbol breath-symbol"></span></button>
-    <button class="quick-tile water" data-quick="water" aria-label="Log water"><span class="quick-symbol water-symbol"></span></button>
-    <button class="quick-tile sensory" data-quick="sensory-overload" aria-label="Log sensory overload"><span class="quick-symbol sensory-symbol"></span></button>
+  <div class="quick-grid" aria-label="Everyday notes">
+    <button class="quick-tile" data-quick="nap" aria-label="Log nap or doze"><span class="art moon"></span></button>
+    <button class="quick-tile" data-quick="caffeine" aria-label="Log caffeine or energy drink"><span class="art cup"></span></button>
+    <button class="quick-tile" data-quick="alcohol" aria-label="Log alcohol"><span class="art glass"></span></button>
+    <button class="quick-tile" data-quick="breathing" aria-label="Log breath-holding or forgetting to breathe"><span class="art breath"></span></button>
+    <button class="quick-tile" data-quick="water" aria-label="Log water"><span class="art water"></span></button>
+    <button class="quick-tile" data-quick="sensory-overload" aria-label="Log sensory overload"><span class="art sensory"></span></button>
   </div>
-  <section class="context-row">
-    <button class="context-chip" id="cycleHomeBtn"><span class="context-kicker">CYCLE</span><strong id="cycleHomeText">Open cycle</strong></button>
-    <button class="context-chip" id="healthHomeBtn"><span class="context-kicker">APPLE HEALTH</span><strong id="healthHomeText">Import snapshot</strong></button>
-  </section>
+  <section class="strip-card" id="medsStrip"></section>
+  <section class="strip-card" id="cycleStrip"></section>
+  <section class="strip-card" id="healthStrip"></section>
 </section>
 <section id="checkinScreen" class="screen"></section>
 <section id="cycleScreen" class="screen"></section>
@@ -54,11 +55,21 @@
 <section id="patternsScreen" class="screen"></section>
 </main>
 <nav class="bottom-nav" aria-label="Bloom navigation">
-<button data-nav="today" class="active">Today</button><button data-nav="checkin">Check-in</button><button data-nav="cycle">Cycle</button><button data-nav="history">History</button><button data-nav="patterns">Patterns</button>
+  <button data-nav="today" class="active"><span>●</span>Today</button>
+  <button data-nav="checkin"><span>✦</span>Check-in</button>
+  <button data-nav="cycle"><span>◌</span>Cycle</button>
+  <button data-nav="history"><span>≋</span>History</button>
+  <button data-nav="patterns"><span>⌁</span>Patterns</button>
 </nav>
 </div>
-<div id="modal" class="modal-backdrop" hidden><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div id="modalBody"></div></div></div>
-<input id="healthFile" type="file" accept="application/json,.json" hidden><input id="importFile" type="file" accept="application/json,.json" hidden>
-<script src="app.js?v=26"></script>
+<div id="modal" class="modal-backdrop" hidden>
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<input id="healthFile" type="file" accept="application/json,.json" hidden>
+<input id="importFile" type="file" accept="application/json,.json" hidden>
+<script src="app.js?v=27"></script>
 </body>
 </html>
