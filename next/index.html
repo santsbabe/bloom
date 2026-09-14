@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff9f5">
+<title>Bloom redesign preview</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="garden" aria-hidden="true"></div>
+<main class="shell">
+  <section id="baselineView" class="panel" hidden>
+    <div class="brand">BLOOM</div>
+    <div id="baselineStep"></div>
+  </section>
+
+  <section id="homeView" class="home" hidden>
+    <header class="home-head">
+      <div><div class="brand">BLOOM</div><div id="homeDate" class="muted"></div></div>
+      <div id="cycleStatus" class="cycle-status"></div>
+    </header>
+
+    <button id="checkInLotus" class="lotus-button" type="button" aria-label="Check in">
+      <svg viewBox="0 0 420 260" role="img" aria-hidden="true">
+        <defs><radialGradient id="g" cx="50%" cy="55%" r="55%"><stop offset="0" stop-color="#ffd9cf"/><stop offset=".55" stop-color="#ff7b8e"/><stop offset="1" stop-color="#e64c78"/></radialGradient></defs>
+        <g class="lotus-petals" fill="url(#g)" stroke="#8f4358" stroke-width="2">
+          <path d="M210 194C151 150 132 94 210 35c78 59 59 115 0 159Z"/>
+          <path d="M210 194C126 181 82 137 112 67c75 22 105 72 98 127Z"/>
+          <path d="M210 194C294 181 338 137 308 67c-75 22-105 72-98 127Z"/>
+          <path d="M210 194C135 216 87 188 66 128c73-14 124 15 144 66Z"/>
+          <path d="M210 194C285 216 333 188 354 128c-73-14-124 15-144 66Z"/>
+        </g>
+      </svg>
+      <span>CHECK IN</span>
+    </button>
+
+    <div class="quick-grid" aria-label="Quick events">
+      <button data-quick="nap" aria-label="Nap or doze"><span class="quick-art pillow"></span></button>
+      <button data-quick="caffeine" aria-label="Caffeine or energy drink"><span class="quick-art cup"></span></button>
+      <button data-quick="alcohol" aria-label="Alcohol"><span class="quick-art wine"></span></button>
+      <button data-quick="breathHolding" aria-label="Holding breath or forgetting to breathe"><span class="quick-art breath"></span></button>
+      <button data-quick="water" aria-label="Water"><span class="quick-art water"></span></button>
+      <button data-quick="sensory" aria-label="Sensory overload"><span class="quick-art sensory"></span></button>
+    </div>
+
+    <section id="weeklyCard" class="weekly-card" hidden><button id="weeklyOpen" type="button">Weekly review</button></section>
+    <div id="recent" class="recent"></div>
+  </section>
+
+  <dialog id="flowDialog"><form method="dialog"><button class="close" value="cancel" aria-label="Close">×</button></form><div id="flowBody"></div></dialog>
+</main>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
