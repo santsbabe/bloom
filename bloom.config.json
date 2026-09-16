@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "app": {
     "name": "Bloom",
     "platform": "mobile-web-pwa",
@@ -22,8 +22,16 @@
     "primaryVisual": "growing-lotus",
     "lotusProgression": "time-of-day-only",
     "medicationPlacement": "immediately-below-primary-action",
-    "quickEvents": ["nap", "caffeine", "alcohol", "breathing", "water", "sensory-overload"],
-    "quickEventVisibleLabels": false,
+    "visualTriggerVisibleLabels": false,
+    "visualTriggers": [
+      {"key": "nap", "label": "Sleep", "asset": "assets/triggers/sleep.png"},
+      {"key": "caffeine", "label": "Caffeinate", "asset": "assets/triggers/caffeinate.png"},
+      {"key": "alcohol", "label": "Alcohol", "asset": "assets/triggers/alcohol.png"},
+      {"key": "breathing", "label": "Breathe", "asset": "assets/triggers/breathe.png"},
+      {"key": "water", "label": "Hydrate", "asset": "assets/triggers/hydrate.png"},
+      {"key": "sensory-overload", "label": "Sense", "asset": "assets/triggers/sense.png"}
+    ],
+    "legacyEventKeys": ["nap", "caffeine", "alcohol", "breathing", "water", "sensory-overload"],
     "healthPresentation": "supporting-context-not-primary-card"
   },
   "periodicCheckInGroups": [
