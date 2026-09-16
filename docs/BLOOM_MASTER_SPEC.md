@@ -1,8 +1,8 @@
 # Bloom — Master Product & UX Specification
 
 **Status:** Canonical source of truth. Implementation must follow this file.  
-**Updated:** 14/09/2026  
-**Primary platform:** iPhone / mobile web PWA  
+**Updated:** 16/09/2026  
+**Primary platform:** iPhone / mobile web PWA, with approved responsive desktop layout  
 **Storage:** local-first  
 **Date format:** dd/mm/yyyy  
 **Time format:** HH:mm (24-hour)
@@ -73,8 +73,17 @@ A prominent **growing lotus** is the primary control. Visible text is **CHECK IN
 ### Time-of-day garden progression
 The Home garden and lotus evolve gradually through the day. Progression is based only on local time/daylight, never on compliance or check-in completion. No wilting or punishment for missed use. Where browser sunrise/sunset is unavailable, use a gentle time-of-day fallback without claiming astronomical precision.
 
-### Quick-event shortcuts
-Image-only shortcuts, no visible labels beneath them, for at least: nap/doze, caffeine/energy drink, alcohol, breath-holding/forgetting to breathe, water, sensory overload. Each retains an accessibility label. Use literal-object painterly artwork, not emoji or abstract medical icons.
+### Visual triggers
+Home uses six image-only visual triggers with no visible text underneath. Each retains an accessibility label and title:
+
+1. **Sleep** — internal event key `nap`
+2. **Caffeinate** — internal event key `caffeine`
+3. **Alcohol** — internal event key `alcohol`
+4. **Breathe** — internal event key `breathing`
+5. **Hydrate** — internal event key `water`
+6. **Sense** — internal event key `sensory-overload`
+
+The exact approved production artwork is stored at `assets/triggers/` and governed by `assets/triggers/trigger-assets.json` and `docs/BLOOM_UI_BRAND_GUIDELINE.md`. Preview and production builds must reference those exact files rather than regenerate artwork.
 
 ### Medication status
 Today shows a compact medication status/control when something is due or unresolved. It must not turn into a clinical dashboard.
@@ -83,9 +92,14 @@ Today shows a compact medication status/control when something is due or unresol
 Home may show cycle day/estimated phase with uncertainty where relevant. Cycle does not belong inside the morning baseline.
 
 ## 8. Visual identity
-Painterly/floral Bloom identity with hot pink, coral/orange, teal, olive, bright yellow, plum and strong white space. Avoid generic beige wellness UI, clinical dashboards, generic SaaS cards, emoji shortcuts, motivational slogans, trial-font watermarks and decorative taglines.
+The approved Bloom visual identity is **Warm Conservatory**.
 
-Labels/captions use clean all-caps, widely tracked sans-serif. Imagery carries the emotional tone.
+Bloom uses warm ivory, sunlit white, lotus blush, dusty rose, muted coral/apricot, soft sage, olive, moss, honeyed gold and restrained smoky plum accents. Avoid generic beige wellness UI, clinical dashboards, generic SaaS cards, emoji shortcuts, motivational slogans, trial-font watermarks and decorative taglines.
+
+Labels/captions use clean all-caps or lightly tracked sans-serif. Imagery carries the emotional tone. Trigger artwork must belong to one Warm Conservatory image family with consistent warm lighting, framing, depth of field and colour treatment.
+
+### Responsive layout
+Mobile remains hero-first and uses a three-column visual-trigger grid at typical phone widths. Desktop uses additional width for breathing room and clearer grouping; it may display all six triggers in one row. Desktop must not become a denser enterprise-dashboard version of mobile.
 
 ## 9. CHECK IN flow
 There are no named depth/mode controls. The user enters via CHECK IN and chooses what is relevant.
@@ -140,10 +154,10 @@ Track body/cycle symptoms as body signals without assuming hormones caused them.
 
 Also support allergy/skin burden and symptoms where configured (e.g. rhinitis/dust burden, post-nasal drip/eye/throat symptoms, eczema/skin barrier, rosacea, keratosis pilaris), again as observations rather than causes.
 
-## 16. Context & triggers / quick events
+## 16. Context & triggers / visual triggers
 Support caffeine/energy drinks, alcohol, hydration, meals/appetite, naps/dozing, movement, travel/location, task/demand, parenting, work, home, social, conflict, unexpected change, sensory load and other relevant context.
 
-Quick events map to the same underlying event model as ordinary check-ins; no duplicate records for the same event.
+Visual-trigger actions map to the same underlying event model as ordinary check-ins; no duplicate records for the same event. The internal record type may remain `quick-event` for backward compatibility, but that term is not user-facing UI copy.
 
 ## 17. What just happened?
 Separate from routine CHECK IN. Progressive mobile flow: Situation → Body → Emotion → Need → Help. Every step supports Back/Skip and incomplete entries are valid. Optional “Did that help?”: Yes / A bit / No / Haven’t tried.
@@ -164,7 +178,7 @@ History supports inspect/edit/delete/backfill. Do not label historical entries w
 Pattern statements are cautious associations: “often coincided with”, “travelled with”, “worth watching”. Never state causation. Weekly review is optional and begins with what Bloom noticed before asking for reflection.
 
 ## 21. Data model
-Use event-based data with typed records rather than one giant daily object. Minimum record families: baseline, medication-adherence, check-in, quick-event, support-now, what-just-happened, cycle-event, health-snapshot, manual-correction.
+Use event-based data with typed records rather than one giant daily object. Minimum record families: baseline, medication-adherence, check-in, `quick-event` (legacy internal record type for visual-trigger actions), support-now, what-just-happened, cycle-event, health-snapshot, manual-correction.
 
 All records support timestamp, local date, source, created/updated times and optional note. Shared experiences referenced from different UI routes must resolve to one event where possible.
 
@@ -174,7 +188,9 @@ Bloom stores personal data locally in the browser/device by default. Export/impo
 Hosted production must be access-controlled. The application code may be hosted separately from personal local data.
 
 ## 23. Deployment and source of truth
-`docs/BLOOM_MASTER_SPEC.md` is canonical. `bloom.config.json`, UI copy, data schema and implementation must stay consistent with it. A product-behaviour change is incomplete until the master spec and implementation are both updated.
+`docs/BLOOM_MASTER_SPEC.md` is canonical for product behaviour and data rules. `docs/BLOOM_UI_BRAND_GUIDELINE.md` is canonical for visual identity and presentation. `assets/triggers/trigger-assets.json` is the machine-readable source of truth for the six locked visual-trigger assets.
+
+`bloom.config.json`, UI copy, data schema and implementation must stay consistent with those sources. A product or visual change is incomplete until the applicable source-of-truth documents and implementation are both updated.
 
 ## 24. Acceptance checks
 - No user-facing “low-energy”, “quick” or “deep”.
@@ -182,7 +198,9 @@ Hosted production must be access-controlled. The application code may be hosted 
 - Sleep + due-meds + Good/Okay/Bad sequence works.
 - Bad routes to minimal support without a named mode.
 - Growing lotus is the main Home control with CHECK IN overlay.
-- Quick events are image-first with no visible text labels.
+- Six visual triggers use the locked repository images and approved user-facing names.
+- Trigger images are image-first with no visible text labels beneath them.
+- Typical mobile layout renders triggers in three columns; desktop may render six across without adding dashboard density.
 - Medication adherence is per medication/time and includes access problems.
 - CHECK IN is grouped and progressively disclosed.
 - Physical symptoms are optional and capacity-gated.
