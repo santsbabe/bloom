@@ -1,0 +1,23 @@
+/* Bloom Home hero — Warm Conservatory integration */
+.hero-integrated{margin:2px 0 14px;display:grid;place-items:center;text-align:center}
+.hero-lotus-card{width:min(100%,420px)!important;height:auto!important;margin:0 auto;padding:0!important;border:0!important;border-radius:34px!important;background:transparent!important;box-shadow:none!important;overflow:visible!important}
+.hero-lotus-card::after{display:none!important}
+.hero-lotus-frame{position:relative;overflow:hidden;border-radius:34px;background:rgba(255,253,249,.88);border:1px solid rgba(231,221,212,.92);box-shadow:0 18px 46px rgba(100,74,66,.12),0 4px 12px rgba(100,74,66,.05);padding:8px}
+.hero-lotus-photo{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:27px}
+.hero-wash{position:absolute;inset:8px;border-radius:27px;background:linear-gradient(180deg,rgba(255,255,255,.08) 0%,transparent 47%,rgba(65,52,49,.04) 67%,rgba(52,41,38,.32) 100%);pointer-events:none}
+.hero-checkin-label{left:50%!important;bottom:29px!important;transform:translateX(-50%)!important;color:#fffaf6!important;font-size:14px!important;font-weight:850!important;letter-spacing:.32em!important;text-shadow:0 2px 15px rgba(52,37,36,.58)!important;white-space:nowrap!important}
+.hero-note{margin-top:7px!important;min-height:1.2em;color:#8d665f!important}
+@media(max-width:520px){
+  .hero-lotus-card{width:min(100%,350px)!important}
+  .hero-lotus-frame{border-radius:30px;padding:7px}
+  .hero-lotus-photo,.hero-wash{border-radius:24px}
+  .hero-wash{inset:7px}
+  .hero-checkin-label{bottom:25px!important;font-size:13px!important}
+}
+@media(max-width:360px){
+  .hero-lotus-card{width:min(100%,320px)!important}
+  .hero-checkin-label{font-size:12px!important;letter-spacing:.27em!important}
+}
+@media(min-width:700px){
+  .hero-lotus-card{width:420px!important}
+}
