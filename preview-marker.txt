@@ -1,1 +1,2 @@
 Netlify deploy preview trigger for current main build. Runtime application files are unchanged.
+Retriggered after Deploy Previews were confirmed enabled in Netlify.
