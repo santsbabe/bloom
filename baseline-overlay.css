@@ -1,0 +1,38 @@
+.baseline-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: linear-gradient(90deg, rgba(255, 250, 245, .12), rgba(255, 250, 245, .58));
+  backdrop-filter: blur(1.5px);
+}
+
+.baseline-overlay .flow-wrap {
+  width: min(560px, calc(100% - 24px));
+  min-height: 100%;
+  margin-left: auto;
+  margin-right: max(12px, calc((100vw - 1080px) / 2));
+  padding: 36px 0 110px;
+  align-items: center;
+}
+
+.baseline-overlay .flow-card {
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 24px 70px rgba(58, 43, 48, .2);
+}
+
+@media (max-width: 760px) {
+  .baseline-overlay {
+    background: linear-gradient(180deg, rgba(255, 250, 245, .04) 0 24%, rgba(255, 250, 245, .72) 42% 100%);
+    backdrop-filter: blur(.8px);
+  }
+
+  .baseline-overlay .flow-wrap {
+    width: calc(100% - 16px);
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 27vh 0 calc(96px + env(safe-area-inset-bottom));
+    align-items: flex-end;
+  }
+}

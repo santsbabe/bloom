@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Bloom v31: working baseline overlay + confirmed trigger capture -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -8,8 +9,10 @@
 <meta name="apple-mobile-web-app-title" content="Bloom">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Bloom</title>
-<link rel="stylesheet" href="styles.css?v=28">
-<link rel="stylesheet" href="trigger-assets.css?v=28">
+<link rel="stylesheet" href="styles.css?v=31">
+<link rel="stylesheet" href="trigger-assets.css?v=31">
+<link rel="stylesheet" href="trigger-interactions.css?v=31">
+<link rel="stylesheet" href="baseline-overlay.css?v=31">
 </head>
 <body>
 <div class="garden" aria-hidden="true"><div class="glow"></div><div class="botanical botanical-left"></div><div class="botanical botanical-right"></div></div>
@@ -37,12 +40,12 @@
   <section class="meds-home" id="medsStrip"></section>
   <div class="quick-label">TRIGGERS</div>
   <div class="quick-grid" aria-label="Visual triggers">
-    <button class="quick-tile nap" data-quick="nap" aria-label="Sleep" title="Sleep"><img class="trigger-art" src="assets/triggers/sleep.png" alt=""></button>
-    <button class="quick-tile caffeine" data-quick="caffeine" aria-label="Caffeinate" title="Caffeinate"><img class="trigger-art" src="assets/triggers/caffeinate.png" alt=""></button>
-    <button class="quick-tile alcohol" data-quick="alcohol" aria-label="Alcohol" title="Alcohol"><img class="trigger-art" src="assets/triggers/alcohol.png" alt=""></button>
-    <button class="quick-tile breathing" data-quick="breathing" aria-label="Breathe" title="Breathe"><img class="trigger-art" src="assets/triggers/breathe.png" alt=""></button>
-    <button class="quick-tile water" data-quick="water" aria-label="Hydrate" title="Hydrate"><img class="trigger-art" src="assets/triggers/hydrate.png" alt=""></button>
-    <button class="quick-tile sensory" data-quick="sensory-overload" aria-label="Sense" title="Sense"><img class="trigger-art" src="assets/triggers/sense.png" alt=""></button>
+    <button class="quick-tile nap" data-quick="nap" aria-label="Sleep" aria-pressed="false" title="Sleep"><img class="trigger-art" src="assets/triggers/sleep.png" alt=""></button>
+    <button class="quick-tile caffeine" data-quick="caffeine" aria-label="Caffeinate" aria-pressed="false" title="Caffeinate"><img class="trigger-art" src="assets/triggers/caffeinate.png" alt=""></button>
+    <button class="quick-tile alcohol" data-quick="alcohol" aria-label="Alcohol" aria-pressed="false" title="Alcohol"><img class="trigger-art" src="assets/triggers/alcohol.png" alt=""></button>
+    <button class="quick-tile breathing" data-quick="breathing" aria-label="Breathe" aria-pressed="false" title="Breathe"><img class="trigger-art" src="assets/triggers/breathe.png" alt=""></button>
+    <button class="quick-tile water" data-quick="water" aria-label="Hydrate" aria-pressed="false" title="Hydrate"><img class="trigger-art" src="assets/triggers/hydrate.png" alt=""></button>
+    <button class="quick-tile sensory" data-quick="sensory-overload" aria-label="Sense" aria-pressed="false" title="Sense"><img class="trigger-art" src="assets/triggers/sense.png" alt=""></button>
   </div>
   <section class="context-row">
     <button class="context-chip" id="cycleHomeBtn"><span class="context-kicker">CYCLE</span><strong id="cycleHomeText">Open cycle</strong></button>
@@ -60,6 +63,6 @@
 </div>
 <div id="modal" class="modal-backdrop" hidden><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div id="modalBody"></div></div></div>
 <input id="healthFile" type="file" accept="application/json,.json" hidden><input id="importFile" type="file" accept="application/json,.json" hidden>
-<script src="app.js?v=28"></script>
+<script src="app.js?v=31"></script>
 </body>
 </html>
