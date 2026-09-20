@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "app": {
     "name": "Bloom",
     "platform": "mobile-web-pwa",
@@ -23,6 +23,12 @@
     "lotusProgression": "time-of-day-only",
     "medicationPlacement": "immediately-below-primary-action",
     "visualTriggerVisibleLabels": false,
+    "visualTriggerBehaviour": {
+      "tapOpensCapture": true,
+      "saveRequiresPrimaryAnswer": true,
+      "recordedTodayIndicator": true,
+      "notesOptional": true
+    },
     "visualTriggers": [
       {"key": "nap", "label": "Sleep", "asset": "assets/triggers/sleep.png"},
       {"key": "caffeine", "label": "Caffeinate", "asset": "assets/triggers/caffeinate.png"},
