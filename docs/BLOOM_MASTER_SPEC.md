@@ -35,6 +35,8 @@ Bloom is a private, local-first pattern-recognition and decision-support app. It
 ## 4. First-open baseline
 The first app use of the day opens the baseline before Home.
 
+The visual Home scene remains visible behind the baseline as a focused overlay/sheet. The daily baseline may block Home interactions until completed, but it must not replace the lotus, garden and visual-trigger identity with a blank form-only screen.
+
 Sequence:
 1. Sleep.
 2. Morning medication adherence/access.
@@ -197,6 +199,7 @@ Hosted production must be access-controlled. The application code may be hosted 
 ## 24. Acceptance checks
 - No user-facing “low-energy”, “quick” or “deep”.
 - First-open daily baseline works.
+- First-open baseline preserves the visual Home scene behind its focused overlay.
 - Sleep + due-meds + Good/Okay/Bad sequence works.
 - Bad routes to minimal support without a named mode.
 - Growing lotus is the main Home control with CHECK IN overlay.
