@@ -2,7 +2,6 @@
   position: fixed;
   inset: 0;
   z-index: 40;
-  display: block !important;
   overflow-y: auto;
   overscroll-behavior: contain;
   background: linear-gradient(90deg, rgba(255, 250, 245, .12), rgba(255, 250, 245, .58));
