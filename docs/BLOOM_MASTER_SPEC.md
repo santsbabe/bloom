@@ -159,6 +159,8 @@ Support caffeine/energy drinks, alcohol, hydration, meals/appetite, naps/dozing,
 
 Visual-trigger actions map to the same underlying event model as ordinary check-ins; no duplicate records for the same event. The internal record type may remain `quick-event` for backward compatibility, but that term is not user-facing UI copy.
 
+A trigger tap must never silently create an empty event. The tapped tile shows an immediate selected state and opens a small trigger-specific capture step. Sleep, Caffeinate, Alcohol, Breathe and Hydrate ask what occurred and an optional amount/duration; Sense asks intensity and optional contributing sources. Save requires a primary answer, notes remain optional, Cancel records nothing, and a saved trigger shows a persistent recorded-today indicator on Home.
+
 ## 17. What just happened?
 Separate from routine CHECK IN. Progressive mobile flow: Situation → Body → Emotion → Need → Help. Every step supports Back/Skip and incomplete entries are valid. Optional “Did that help?”: Yes / A bit / No / Haven’t tried.
 
@@ -200,6 +202,8 @@ Hosted production must be access-controlled. The application code may be hosted 
 - Growing lotus is the main Home control with CHECK IN overlay.
 - Six visual triggers use the locked repository images and approved user-facing names.
 - Trigger images are image-first with no visible text labels beneath them.
+- Trigger taps visibly respond, ask what to record, and save only after explicit confirmation.
+- Saved trigger tiles indicate that the trigger has been recorded today; cancelling creates no event.
 - Typical mobile layout renders triggers in three columns; desktop may render six across without adding dashboard density.
 - Medication adherence is per medication/time and includes access problems.
 - CHECK IN is grouped and progressively disclosed.
