@@ -1,0 +1,38 @@
+.quick-tile {
+  transition: transform .18s ease, box-shadow .18s ease, outline-color .18s ease;
+}
+
+.quick-tile.pending {
+  transform: scale(.94);
+  outline: 3px solid rgba(239, 127, 105, .9);
+  outline-offset: 2px;
+  box-shadow: 0 10px 28px rgba(180, 84, 94, .24);
+}
+
+.quick-tile.recorded::after {
+  content: "✓";
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: #466953;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 0 2px 8px rgba(35, 66, 49, .35);
+}
+
+.trigger-confirm {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 15px;
+  background: #f2f7ee;
+  color: #47604e;
+  font-size: 12px;
+  font-weight: 750;
+}
