@@ -55,9 +55,27 @@ body {
   gap: 12px;
 }
 
+.quick-item {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+  justify-items: center;
+}
+
 .quick-tile {
+  width: 100%;
   border-radius: 24px;
   box-shadow: 0 11px 28px rgba(78, 54, 62, .09);
+}
+
+.trigger-caption {
+  font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: .13em;
+  color: #61705f;
+  text-align: center;
 }
 
 .quick-tile .trigger-art { transition: transform .25s ease; }
@@ -73,6 +91,8 @@ body {
   .lotus-label { bottom: 18px; }
   .quick-grid { gap: 8px; }
   .quick-tile { border-radius: 20px; }
+  .quick-item { gap: 6px; }
+  .trigger-caption { font-size: 9px; letter-spacing: .1em; }
 }
 
 @media (min-width: 900px) {
