@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Bloom v31: working baseline overlay + confirmed trigger capture -->
+<!-- Bloom v32: approved painterly visual direction + confirmed trigger capture -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="trigger-assets.css?v=31">
 <link rel="stylesheet" href="trigger-interactions.css?v=31">
 <link rel="stylesheet" href="baseline-overlay.css?v=31">
+<link rel="stylesheet" href="design-v32.css?v=32">
 </head>
 <body>
 <div class="garden" aria-hidden="true"><div class="glow"></div><div class="botanical botanical-left"></div><div class="botanical botanical-right"></div></div>
@@ -27,12 +28,7 @@
   <div class="home-heading"><span>TODAY</span><span id="cycleBadge" class="cycle-badge" hidden></span></div>
   <div class="home-hero">
     <button id="lotusCheckin" class="lotus-card" aria-label="Check in">
-      <div class="lotus-scene" aria-hidden="true">
-        <span class="sun-glow"></span>
-        <span class="pad pad-a"></span><span class="pad pad-b"></span>
-        <span class="petal petal-1"></span><span class="petal petal-2"></span><span class="petal petal-3"></span><span class="petal petal-4"></span><span class="petal petal-5"></span><span class="petal petal-6"></span><span class="petal petal-7"></span>
-        <span class="lotus-centre"></span>
-      </div>
+      <img class="lotus-visual" src="assets/lotus-check-in.webp" alt="" aria-hidden="true">
       <span class="lotus-label">CHECK IN</span>
     </button>
     <div id="baselineDoneNote" class="micro-note"></div>
@@ -63,6 +59,6 @@
 </div>
 <div id="modal" class="modal-backdrop" hidden><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div id="modalBody"></div></div></div>
 <input id="healthFile" type="file" accept="application/json,.json" hidden><input id="importFile" type="file" accept="application/json,.json" hidden>
-<script src="app.js?v=31"></script>
+<script src="app.js?v=32"></script>
 </body>
 </html>

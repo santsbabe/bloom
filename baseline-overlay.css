@@ -4,8 +4,8 @@
   z-index: 40;
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: linear-gradient(90deg, rgba(255, 250, 245, .12), rgba(255, 250, 245, .58));
-  backdrop-filter: blur(1.5px);
+  background: linear-gradient(90deg, rgba(255, 250, 245, .08), rgba(255, 250, 245, .5));
+  backdrop-filter: blur(1px);
 }
 
 .baseline-overlay .flow-wrap {
@@ -24,15 +24,19 @@
 
 @media (max-width: 760px) {
   .baseline-overlay {
-    background: linear-gradient(180deg, rgba(255, 250, 245, .04) 0 24%, rgba(255, 250, 245, .72) 42% 100%);
-    backdrop-filter: blur(.8px);
+    background: linear-gradient(180deg, rgba(255, 250, 245, 0) 0 27%, rgba(255, 250, 245, .54) 42%, rgba(255, 250, 245, .9) 100%);
+    backdrop-filter: blur(.5px);
   }
 
   .baseline-overlay .flow-wrap {
     width: calc(100% - 16px);
     min-height: 100%;
     margin: 0 auto;
-    padding: 27vh 0 calc(96px + env(safe-area-inset-bottom));
+    padding: min(34vh, 290px) 0 calc(90px + env(safe-area-inset-bottom));
     align-items: flex-end;
+  }
+
+  .baseline-overlay .flow-card {
+    border-radius: 28px 28px 20px 20px;
   }
 }
