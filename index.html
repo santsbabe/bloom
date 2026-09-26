@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Bloom v33: approved painterly visual direction + captioned trigger capture -->
+<!-- Bloom v34: immersive garden preview + streamlined local-first capture -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -13,10 +13,10 @@
 <link rel="stylesheet" href="trigger-assets.css?v=31">
 <link rel="stylesheet" href="trigger-interactions.css?v=31">
 <link rel="stylesheet" href="baseline-overlay.css?v=31">
-<link rel="stylesheet" href="design-v32.css?v=33">
+<link rel="stylesheet" href="design-v32.css?v=34">
 </head>
 <body>
-<div class="garden" aria-hidden="true"><div class="glow"></div><div class="botanical botanical-left"></div><div class="botanical botanical-right"></div></div>
+<div class="garden" aria-hidden="true"><img class="garden-backdrop" src="assets/bloom-garden-v34.webp" alt=""><div class="garden-wash"></div><div class="glow"></div></div>
 <div class="app-shell">
 <header class="topbar">
   <div><div class="brand-word">Bloom</div><div class="today-date" id="todayDate"></div></div>
@@ -33,20 +33,22 @@
     </button>
     <div id="baselineDoneNote" class="micro-note"></div>
   </div>
-  <section class="meds-home" id="medsStrip"></section>
-  <div class="quick-label">TRIGGERS</div>
-  <div class="quick-grid" aria-label="Visual triggers">
-    <div class="quick-item"><button class="quick-tile nap" data-quick="nap" aria-label="Sleep" aria-pressed="false" title="Sleep"><img class="trigger-art" src="assets/triggers/sleep.png" alt=""></button><span class="trigger-caption">SLEEP</span></div>
-    <div class="quick-item"><button class="quick-tile caffeine" data-quick="caffeine" aria-label="Caffeinate" aria-pressed="false" title="Caffeinate"><img class="trigger-art" src="assets/triggers/caffeinate.png" alt=""></button><span class="trigger-caption">CAFFEINATE</span></div>
-    <div class="quick-item"><button class="quick-tile alcohol" data-quick="alcohol" aria-label="Alcohol" aria-pressed="false" title="Alcohol"><img class="trigger-art" src="assets/triggers/alcohol.png" alt=""></button><span class="trigger-caption">ALCOHOL</span></div>
-    <div class="quick-item"><button class="quick-tile breathing" data-quick="breathing" aria-label="Breathe" aria-pressed="false" title="Breathe"><img class="trigger-art" src="assets/triggers/breathe.png" alt=""></button><span class="trigger-caption">BREATHE</span></div>
-    <div class="quick-item"><button class="quick-tile water" data-quick="water" aria-label="Hydrate" aria-pressed="false" title="Hydrate"><img class="trigger-art" src="assets/triggers/hydrate.png" alt=""></button><span class="trigger-caption">HYDRATE</span></div>
-    <div class="quick-item"><button class="quick-tile sensory" data-quick="sensory-overload" aria-label="Sense" aria-pressed="false" title="Sense"><img class="trigger-art" src="assets/triggers/sense.png" alt=""></button><span class="trigger-caption">SENSE</span></div>
+  <button class="week-ribbon" id="weekRibbon" aria-label="Open seven-day patterns"><span class="week-ribbon-copy"><span class="caps">YOUR LAST SEVEN DAYS</span><strong>See the shape of your week</strong></span><span id="weekRibbonDays" class="week-ribbon-days"></span><span class="week-ribbon-arrow" aria-hidden="true">›</span></button>
+  <div id="homeSections" class="home-sections">
+    <details class="home-accordion meds-home" data-home-section="medication" open><summary><span><span class="caps">MEDICATION</span><strong>Due and recorded</strong></span><span class="accordion-mark" aria-hidden="true"></span></summary><div class="accordion-body" id="medsStrip"></div></details>
+    <details class="home-accordion triggers-home" data-home-section="triggers" open><summary><span><span class="caps">TRIGGERS</span><strong>Record something</strong></span><span class="accordion-mark" aria-hidden="true"></span></summary><div class="accordion-body"><div class="quick-grid" aria-label="Visual triggers">
+      <div class="quick-item" data-trigger-item="nap"><button class="quick-tile nap" data-quick="nap" aria-label="Sleep" aria-pressed="false" title="Sleep"><img class="trigger-art" src="assets/triggers/sleep.png" alt=""></button><span class="trigger-caption">SLEEP</span></div>
+      <div class="quick-item" data-trigger-item="caffeine"><button class="quick-tile caffeine" data-quick="caffeine" aria-label="Caffeinate" aria-pressed="false" title="Caffeinate"><img class="trigger-art" src="assets/triggers/caffeinate.png" alt=""></button><span class="trigger-caption">CAFFEINATE</span></div>
+      <div class="quick-item" data-trigger-item="alcohol"><button class="quick-tile alcohol" data-quick="alcohol" aria-label="Alcohol" aria-pressed="false" title="Alcohol"><img class="trigger-art" src="assets/triggers/alcohol.png" alt=""></button><span class="trigger-caption">ALCOHOL</span></div>
+      <div class="quick-item" data-trigger-item="breathing"><button class="quick-tile breathing" data-quick="breathing" aria-label="Breathe" aria-pressed="false" title="Breathe"><img class="trigger-art" src="assets/triggers/breathe.png" alt=""></button><span class="trigger-caption">BREATHE</span></div>
+      <div class="quick-item" data-trigger-item="water"><button class="quick-tile water" data-quick="water" aria-label="Hydrate" aria-pressed="false" title="Hydrate"><img class="trigger-art" src="assets/triggers/hydrate.png" alt=""></button><span class="trigger-caption">HYDRATE</span></div>
+      <div class="quick-item" data-trigger-item="sensory-overload"><button class="quick-tile sensory" data-quick="sensory-overload" aria-label="Sense" aria-pressed="false" title="Sense"><img class="trigger-art" src="assets/triggers/sense.png" alt=""></button><span class="trigger-caption">SENSE</span></div>
+    </div></div></details>
+    <details class="home-accordion context-home" data-home-section="context"><summary><span><span class="caps">CONTEXT</span><strong>Cycle and Health</strong></span><span class="accordion-mark" aria-hidden="true"></span></summary><div class="accordion-body"><section class="context-row">
+      <button class="context-chip" id="cycleHomeBtn"><span class="context-kicker">CYCLE</span><strong id="cycleHomeText">Open cycle</strong></button>
+      <button class="context-chip" id="healthHomeBtn"><span class="context-kicker">APPLE HEALTH</span><strong id="healthHomeText">Import snapshot</strong><span id="healthSyncText" class="sync-note"></span></button>
+    </section></div></details>
   </div>
-  <section class="context-row">
-    <button class="context-chip" id="cycleHomeBtn"><span class="context-kicker">CYCLE</span><strong id="cycleHomeText">Open cycle</strong></button>
-    <button class="context-chip" id="healthHomeBtn"><span class="context-kicker">APPLE HEALTH</span><strong id="healthHomeText">Import snapshot</strong></button>
-  </section>
 </section>
 <section id="checkinScreen" class="screen"></section>
 <section id="cycleScreen" class="screen"></section>
@@ -58,7 +60,8 @@
 </nav>
 </div>
 <div id="modal" class="modal-backdrop" hidden><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Close">×</button><div id="modalBody"></div></div></div>
+<div id="saveToast" class="save-toast" hidden role="status" aria-live="polite"><span class="save-tick">✓</span><span id="saveToastText">Saved</span><button id="undoSave" type="button">Undo</button></div>
 <input id="healthFile" type="file" accept="application/json,.json" hidden><input id="importFile" type="file" accept="application/json,.json" hidden>
-<script src="app.js?v=32"></script>
+<script src="app.js?v=34"></script>
 </body>
 </html>

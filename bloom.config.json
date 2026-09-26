@@ -10,7 +10,7 @@
   },
   "navigation": ["today", "check-in", "cycle", "history", "patterns"],
   "dailyFlow": {
-    "firstOpen": ["sleep", "morning-meds", "daily-state"],
+    "firstOpen": ["compact-baseline-sheet"],
     "dailyStateOptions": ["Good", "Okay", "Bad"],
     "badRoute": "support-now",
     "repeatDailyState": false,
@@ -22,12 +22,16 @@
     "primaryVisual": "growing-lotus",
     "lotusProgression": "time-of-day-only",
     "medicationPlacement": "immediately-below-primary-action",
-    "visualTriggerVisibleLabels": false,
+    "visualTriggerVisibleLabels": true,
+    "visualTriggerOrder": "most-used-first",
     "visualTriggerBehaviour": {
       "tapOpensCapture": true,
       "saveRequiresPrimaryAnswer": true,
       "recordedTodayIndicator": true,
-      "notesOptional": true
+      "notesOptional": true,
+      "secondaryDetailsCollapsed": true,
+      "repeatEntriesAllowed": true,
+      "saveFeedback": "close-tick-toast-with-undo"
     },
     "visualTriggers": [
       {"key": "nap", "label": "Sleep", "asset": "assets/triggers/sleep.png"},
@@ -38,7 +42,12 @@
       {"key": "sensory-overload", "label": "Sense", "asset": "assets/triggers/sense.png"}
     ],
     "legacyEventKeys": ["nap", "caffeine", "alcohol", "breathing", "water", "sensory-overload"],
-    "healthPresentation": "supporting-context-not-primary-card"
+    "healthPresentation": "supporting-context-not-primary-card",
+    "sevenDayRibbon": true,
+    "homeSections": {
+      "display": "manual-accordions",
+      "settingsCanHideAndReorder": true
+    }
   },
   "periodicCheckInGroups": [
     "How I feel",
@@ -60,7 +69,19 @@
     "bridgeFile": "latest.json",
     "fields": ["capturedAt", "steps", "restingHeartRate", "heartRateMin", "heartRateMax", "heartRateAverage", "hrv", "respiratoryRate"],
     "sleepDeferred": true,
-    "missingValuePolicy": "empty-string-or-null-means-unavailable"
+    "missingValuePolicy": "empty-string-or-null-means-unavailable",
+    "refresh": "attempt-on-open-with-visible-last-success-and-manual-retry"
+  },
+  "history": {
+    "opensWithCategoryFilters": true,
+    "categories": ["mood", "medication", "cycle", "triggers"],
+    "correctionModel": "immediate-undo-only"
+  },
+  "patterns": {
+    "primaryView": "relationship-cards",
+    "showEmergingEarly": true,
+    "includeEvidenceCounts": true,
+    "causalityClaims": false
   },
   "privacy": {
     "storage": "localStorage",
