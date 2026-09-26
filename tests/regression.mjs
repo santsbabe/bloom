@@ -22,9 +22,11 @@ assert.match(js, /function refreshHealth/, 'Apple Health on-open refresh missing
 assert.match(js, /window\.addEventListener\('load',\(\)=>refreshHealth\(\)\)/, 'Health refresh must run when Bloom opens');
 assert.match(js, /status:total<5\?'Emerging':'Observed'/, 'Early pattern labelling missing');
 assert.match(css, /@keyframes lotus-breathe/, 'Living lotus motion missing');
+assert.match(css, /font-family: Didot, "Bodoni 72"/, 'Distinctive Bloom wordmark stack missing');
+assert.match(css, /rgba\(255, 253, 248, \.24\)/, 'Garden atmosphere is still over-washed');
 assert.ok(existsSync(new URL('../assets/bloom-garden-v34.webp', import.meta.url)), 'Garden backdrop missing');
 assert.equal(config.home.visualTriggerOrder, 'most-used-first');
 assert.equal(config.history.correctionModel, 'immediate-undo-only');
 assert.equal(config.patterns.showEmergingEarly, true);
 
-console.log('Bloom v34 regression checks passed');
+console.log('Bloom v35 regression checks passed');

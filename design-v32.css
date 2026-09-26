@@ -176,8 +176,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(255, 253, 248, .54), rgba(255, 252, 247, .72) 28%, rgba(247, 249, 241, .88) 100%),
-    radial-gradient(circle at 50% 12%, rgba(255,255,255,.78), transparent 42%);
+    linear-gradient(180deg, rgba(255, 253, 248, .24), rgba(255, 252, 247, .52) 28%, rgba(247, 249, 241, .74) 100%),
+    radial-gradient(circle at 50% 12%, rgba(255,255,255,.48), transparent 42%);
 }
 .garden .glow {
   width: 46vw;
@@ -195,8 +195,13 @@ body {
   margin-bottom: 4px;
 }
 .brand-word {
-  color: #345443;
-  text-shadow: 0 1px 18px rgba(255,255,255,.7);
+  font-family: Didot, "Bodoni 72", "Bodoni MT", "Iowan Old Style", serif;
+  font-size: 43px;
+  font-weight: 700;
+  line-height: .92;
+  letter-spacing: -.058em;
+  color: #2f5541;
+  text-shadow: 0 1px 20px rgba(255,255,255,.76);
 }
 .settings-pill {
   color: #31473b;
@@ -234,7 +239,7 @@ body {
   border-radius: 25px;
   color: var(--garden-ink);
   background:
-    linear-gradient(120deg, rgba(255,252,247,.92), rgba(241,245,232,.76)),
+    linear-gradient(120deg, rgba(255,252,247,.82), rgba(241,245,232,.65)),
     radial-gradient(circle at 80% 10%, rgba(250,207,123,.32), transparent 50%);
   box-shadow: var(--garden-shadow);
   backdrop-filter: blur(18px) saturate(1.18);
@@ -281,7 +286,7 @@ body {
   margin: 0;
   border: 1px solid rgba(255,255,255,.72);
   border-radius: 23px;
-  background: var(--garden-glass);
+  background: rgba(255, 252, 247, .76);
   box-shadow: 0 12px 36px rgba(46,62,47,.09);
   backdrop-filter: blur(18px) saturate(1.12);
   overflow: clip;
@@ -306,6 +311,7 @@ body {
 .home-accordion[open] .accordion-mark::after { transform:rotate(0); }
 .accordion-body { padding: 0 15px 16px; }
 .meds-home { padding: 0; background: var(--garden-glass); }
+.meds-home { background: rgba(255, 252, 247, .76); }
 .meds-home .med-row { padding-top: 2px; }
 .triggers-home .quick-grid { margin-top: 1px; }
 .context-row { margin-top: 0; }
@@ -403,7 +409,8 @@ body {
 
 @media (max-width: 520px) {
   .garden-backdrop { object-position: 50% 45%; }
-  .garden-wash { background: linear-gradient(180deg,rgba(255,253,248,.48),rgba(255,252,247,.74) 25%,rgba(247,249,241,.9)); }
+  .garden-wash { background: linear-gradient(180deg,rgba(255,253,248,.18),rgba(255,252,247,.51) 25%,rgba(247,249,241,.76)); }
+  .brand-word { font-size: 44px; }
   .home-heading { text-shadow:0 1px 12px rgba(255,255,255,.9); }
   .week-ribbon { min-height:112px; grid-template-columns: 116px 1fr; gap:9px; padding-left:13px; padding-right:34px; }
   .week-ribbon-copy strong { font-size:14px; }
