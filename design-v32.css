@@ -144,6 +144,86 @@ body {
   .quick-tile .trigger-art { transition: none; }
 }
 
+/* Bloom v36 — retrospective period dates and daily flow. */
+.ongoing-period {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 15px;
+  border: 1px solid rgba(197, 112, 123, .2);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 244, 242, .92), rgba(247, 244, 229, .86));
+}
+.ongoing-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 14px 0 6px;
+  padding: 12px;
+  border: 1px solid var(--garden-line);
+  border-radius: 16px;
+  background: rgba(255,255,255,.74);
+  font-size: 12px;
+  font-weight: 750;
+}
+.ongoing-toggle input { width: auto; accent-color: #c76f78; }
+.period-flow-list { display: grid; gap: 7px; margin-top: 10px; }
+.flow-day {
+  display: grid;
+  grid-template-columns: minmax(88px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 11px;
+  border: 1px solid var(--garden-line);
+  border-radius: 16px;
+  background: rgba(255,255,255,.7);
+}
+.flow-day > span { display: grid; gap: 2px; font-size: 12px; }
+.flow-day small { color: var(--garden-muted); font-size: 9px; text-transform: uppercase; letter-spacing: .1em; }
+.flow-options { display: flex; gap: 5px; }
+.flow-option {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(177, 102, 116, .2);
+  border-radius: 50%;
+  background: #fff;
+  color: #845f67;
+  font-size: 10px;
+  font-weight: 850;
+}
+.flow-option.selected { color: #fff; background: #bd6875; box-shadow: 0 4px 13px rgba(151,72,91,.2); }
+.flow-value { padding: 6px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; text-transform: capitalize; background: #f4eceb; }
+.flow-value.spotting { background: #f8e9e7; }
+.flow-value.light { background: #f4d8d7; }
+.flow-value.medium { color: #fff; background: #d88a91; }
+.flow-value.heavy { color: #fff; background: #a34f62; }
+.calendar-heading { display: grid; grid-template-columns: 38px 1fr 38px; align-items: center; margin-top: 14px; text-align: center; }
+.calendar-heading strong { font-family: Georgia, serif; color: #3d5948; }
+.day { position: relative; overflow: hidden; }
+.day span { position: relative; z-index: 2; }
+.day i { position: absolute; left: 50%; bottom: 6px; width: 7px; height: 7px; transform: translateX(-50%); border-radius: 50%; background: #d58c91; }
+.day.flow-spotting { background: rgba(251, 234, 232, .86); }
+.day.flow-light { background: rgba(246, 211, 210, .86); }
+.day.flow-medium { color: #704851; background: rgba(225, 158, 162, .82); }
+.day.flow-heavy { color: #fff; background: rgba(157, 73, 91, .9); }
+.day.flow-heavy i { background: #fff; }
+.day:disabled { opacity: .38; cursor: not-allowed; }
+.cycle-legend { display: flex; flex-wrap: wrap; gap: 9px 14px; margin-top: 13px; color: var(--garden-muted); font-size: 9px; font-weight: 750; }
+.cycle-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; background: #f8e9e7; }
+.legend-dot.light { background: #f4d8d7; }
+.legend-dot.medium { background: #d88a91; }
+.legend-dot.heavy { background: #a34f62; }
+
+@media (max-width: 420px) {
+  .flow-day { grid-template-columns: 82px 1fr; }
+  .flow-options { justify-content: flex-end; }
+  .flow-option { width: 31px; height: 31px; }
+}
+
 /* Bloom v34 — immersive garden, translucent structure, living feedback. */
 :root {
   --garden-ink: #263d31;

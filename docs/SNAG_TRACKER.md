@@ -25,3 +25,13 @@
 - Boundary: local source → browser acceptance.
 - Handling: run static/regression/build checks locally, then use the hosted preview for browser acceptance if its authentication boundary is available.
 - Prevention: never promote local static checks to browser verification.
+
+## Cycle only recorded “today” without flow detail
+
+- Symptom: Bloom could toggle bleeding or mark a period start only on the current date, so a period beginning earlier could not be represented accurately and daily flow severity was absent.
+- Root cause: the old cycle model stored only flat `periodStarts` and `bleedingDays` arrays and the calendar had no interaction path.
+- Boundary: Cycle calendar → local period persistence → History and seven-day ribbon.
+- Fix: retain the legacy arrays, add structured period records with start date, nullable end date and one required heaviest-flow value per day; add historical month navigation, tappable dates, an Add Period form, open-period updates and locked completed-period display.
+- Rejected approach: hard-coding the user’s 24 September start date into a shared preview, or applying one default flow value across the full date range.
+- Regression: `tests/regression.mjs` checks retrospective date inputs, open-ended periods, the four flow levels, required daily flow, locked completed records, month navigation and immediate Undo.
+- Prevention: cycle-specific edit rules and legacy-data preservation are recorded in `AGENTS.md` and `bloom.config.json`.

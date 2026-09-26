@@ -8,5 +8,8 @@
 - Do not reintroduce a cryptic `CD` badge; write `Cycle day N` in full.
 - Keep the Bloom wordmark in the high-contrast Didot/Bodoni display stack; do not fall back to generic Georgia styling.
 - History uses category filters and does not provide later edit/delete; correction is immediate Undo.
+- Cycle is the sole exception to the general no-edit rule: an ongoing period may be updated and ended; once its end date is saved it is locked, apart from the immediate Undo window.
+- Period entry must allow past dates from both Add Period and tappable month navigation. Each bleeding day requires one value representing the heaviest flow reached: Spotting, Light, Medium or Heavy.
+- Preserve legacy `periodStarts` and `bleedingDays` data and include the richer `periods` records in JSON export/import; never silently discard old cycle data.
 - Run `node --check app.js`, `node tests/regression.mjs`, JSON parsing, and `git diff --check` before publishing.
 - Increment the service-worker cache name whenever loaded assets or application code changes.

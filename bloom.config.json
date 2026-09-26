@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "app": {
     "name": "Bloom",
     "platform": "mobile-web-pwa",
@@ -76,6 +76,17 @@
     "opensWithCategoryFilters": true,
     "categories": ["mood", "medication", "cycle", "triggers"],
     "correctionModel": "immediate-undo-only"
+  },
+  "cycle": {
+    "periodEntry": ["add-period-form", "tappable-calendar-dates"],
+    "retrospectiveDates": true,
+    "ongoingPeriodEnd": null,
+    "dailyFlowModel": "heaviest-flow-reached-that-day",
+    "flowLevels": ["spotting", "light", "medium", "heavy"],
+    "flowRequiredForEveryBleedingDay": true,
+    "completedPeriodEditing": false,
+    "ongoingPeriodEditing": true,
+    "legacyCycleDataPreserved": true
   },
   "patterns": {
     "primaryView": "relationship-cards",

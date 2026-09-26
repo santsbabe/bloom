@@ -167,7 +167,9 @@ A trigger tap must never silently create an empty event. The tapped tile shows a
 Separate from routine CHECK IN. Progressive mobile flow: Situation → Body → Emotion → Need → Help. Every step supports Back/Skip and incomplete entries are valid. Optional “Did that help?”: Yes / A bit / No / Haven’t tried.
 
 ## 18. Cycle
-Record actual period starts and bleeding days. Actual dates take priority over estimates. Cycle estimates are optional, secondary and explicitly uncertain where appropriate. Symptom tracking works even without cycle dates.
+Record actual period starts, end dates and one heaviest-flow value for every bleeding day: Spotting, Light, Medium or Heavy. A period that is still happening has no end date and remains editable until the user records that it has ended; a completed period is then locked apart from the immediate Undo window.
+
+Retrospective entry is available from both an Add Period form and tappable, Monday-first calendar dates with past-month navigation. Future dates are not valid. Actual dates take priority over estimates. Cycle estimates are optional, secondary and explicitly uncertain where appropriate. Symptom tracking works even without cycle dates. Existing flat period-start and bleeding-day data must remain readable and exportable without silent loss.
 
 ## 19. Apple Health bridge
 Current shortcut produces `latest.json` containing: `capturedAt`, `steps`, `restingHeartRate`, `heartRateMin`, `heartRateMax`, `heartRateAverage`, `hrv`, `respiratoryRate`.
@@ -177,7 +179,7 @@ Blank Watch-dependent fields are valid missing data. Steps are a single daily su
 Bloom must import the local JSON snapshot without putting health data in a URL. Health data remains local to the device/browser. Manual corrections beat imported values.
 
 ## 20. History, patterns and reviews
-History supports inspect/edit/delete/backfill. Do not label historical entries with retired mode names.
+History opens with category filters and supports inspection. General records use immediate Undo rather than later edit/delete. Cycle has one narrow exception: an ongoing period can be completed or corrected until its end date is saved. Do not label historical entries with retired mode names.
 
 Pattern statements are cautious associations: “often coincided with”, “travelled with”, “worth watching”. Never state causation. Weekly review is optional and begins with what Bloom noticed before asking for reflection.
 
