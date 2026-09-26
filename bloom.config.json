@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "app": {
     "name": "Bloom",
     "platform": "mobile-web-pwa",
@@ -87,6 +87,14 @@
     "completedPeriodEditing": false,
     "ongoingPeriodEditing": true,
     "legacyCycleDataPreserved": true
+  },
+  "trial": {
+    "starts": "2026-09-26",
+    "amendmentsResumeAfter": "2026-10-10",
+    "mode": "collect-notes-only",
+    "trackerLocation": "settings",
+    "storage": "localStorage-and-json-backup",
+    "correctionModel": "immediate-undo-only"
   },
   "patterns": {
     "primaryView": "relationship-cards",

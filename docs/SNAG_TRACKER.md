@@ -35,3 +35,12 @@
 - Rejected approach: hard-coding the user’s 24 September start date into a shared preview, or applying one default flow value across the full date range.
 - Regression: `tests/regression.mjs` checks retrospective date inputs, open-ended periods, the four flow levels, required daily flow, locked completed records, month navigation and immediate Undo.
 - Prevention: cycle-specific edit rules and legacy-data preservation are recorded in `AGENTS.md` and `bloom.config.json`.
+
+## Trial feedback could restart endless polishing
+
+- Risk: ad-hoc observations during normal use could trigger immediate amendments and prevent a stable trial from producing meaningful evidence.
+- Boundary: live user observation → product-change decision.
+- Control: Settings contains a local Trial amendment notes tracker; ideas are collected from 26 September through 10 October 2026 and reviewed only after the trial.
+- Data handling: notes remain local, support immediate Undo and are included in JSON backup/import.
+- Regression: `tests/regression.mjs` checks storage, visible trial dates, review gating, Undo and backup/import coverage.
+- Prevention: the no-amendment trial window and production-authorisation record are fixed in `AGENTS.md` and `bloom.config.json`.

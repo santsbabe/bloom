@@ -11,5 +11,7 @@
 - Cycle is the sole exception to the general no-edit rule: an ongoing period may be updated and ended; once its end date is saved it is locked, apart from the immediate Undo window.
 - Period entry must allow past dates from both Add Period and tappable month navigation. Each bleeding day requires one value representing the heaviest flow reached: Spotting, Light, Medium or Heavy.
 - Preserve legacy `periodStarts` and `bleedingDays` data and include the richer `periods` records in JSON export/import; never silently discard old cycle data.
+- From 26 September through 10 October 2026, collect amendment ideas in Settings → Trial amendment notes but do not change Bloom. Trial notes are local-first, included in JSON backup/import and use immediate Undo.
+- Production deployment requires Santie’s explicit approval and an exact tested revision; this approval was given on 26 September 2026 for the v37 finished-product release.
 - Run `node --check app.js`, `node tests/regression.mjs`, JSON parsing, and `git diff --check` before publishing.
 - Increment the service-worker cache name whenever loaded assets or application code changes.

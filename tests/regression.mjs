@@ -41,6 +41,15 @@ assert.equal(config.cycle.dailyFlowModel, 'heaviest-flow-reached-that-day');
 assert.equal(config.cycle.completedPeriodEditing, false);
 assert.equal(config.cycle.ongoingPeriodEditing, true);
 assert.equal(config.cycle.legacyCycleDataPreserved, true);
+assert.match(js, /bloom\.trial-notes\.v1/, 'Local trial-note storage missing');
+assert.match(js, /function openTrialNotes\(\)/, 'Trial amendment tracker missing');
+assert.match(js, /Trial window: 26 September–10 October 2026/, 'Two-week trial window is not visible');
+assert.match(js, /reviewAfter:trialEnd/, 'Trial notes must carry the review gate');
+assert.match(js, /trialNotes=trialNotes\.filter/, 'Trial-note save must support immediate Undo');
+assert.match(js, /homePreferences:homePrefs,trialNotes/, 'Trial notes missing from JSON export');
+assert.match(js, /trialNotes=o\.trialNotes\|\|\[\]/, 'Trial notes missing from JSON import');
+assert.equal(config.trial.mode, 'collect-notes-only');
+assert.equal(config.trial.amendmentsResumeAfter, '2026-10-10');
 assert.equal(config.patterns.showEmergingEarly, true);
 
-console.log('Bloom v36 regression checks passed');
+console.log('Bloom v37 regression checks passed');

@@ -183,6 +183,9 @@ History opens with category filters and supports inspection. General records use
 
 Pattern statements are cautious associations: “often coincided with”, “travelled with”, “worth watching”. Never state causation. Weekly review is optional and begins with what Bloom noticed before asking for reflection.
 
+## 21. Two-week trial and amendment tracker
+The formal trial runs from 26 September through 10 October 2026. During this window Bloom collects amendment ideas but receives no further feature or design changes. Settings contains the local-first Trial amendment notes tracker with a category, automatic record date and free-text note. Notes use immediate Undo and are included in JSON backup/import. Review and prioritisation begin only after 10 October 2026.
+
 ## 21. Data model
 Use event-based data with typed records rather than one giant daily object. Minimum record families: baseline, medication-adherence, check-in, `quick-event` (legacy internal record type for visual-trigger actions), support-now, what-just-happened, cycle-event, health-snapshot, manual-correction.
 
