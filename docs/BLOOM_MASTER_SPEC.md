@@ -167,7 +167,7 @@ A trigger tap must never silently create an empty event. The tapped tile shows a
 Separate from routine CHECK IN. Progressive mobile flow: Situation → Body → Emotion → Need → Help. Every step supports Back/Skip and incomplete entries are valid. Optional “Did that help?”: Yes / A bit / No / Haven’t tried.
 
 ## 18. Cycle
-Record actual period starts, end dates and one heaviest-flow value for every bleeding day: Spotting, Light, Medium or Heavy. A period that is still happening has no end date and remains editable until the user records that it has ended; a completed period is then locked apart from the immediate Undo window.
+Record actual period starts and end dates. A day may optionally record the heaviest flow reached: Spotting, Light, Medium or Heavy. A blank day means Not recorded; it does not mean no bleeding and must never prevent the user from ending a period. A period that is still happening has no end date and remains editable until the user records that it has ended; a completed period is then locked apart from the immediate Undo window.
 
 Retrospective entry is available from both an Add Period form and tappable, Monday-first calendar dates with past-month navigation. Future dates are not valid. Actual dates take priority over estimates. Cycle estimates are optional, secondary and explicitly uncertain where appropriate. Symptom tracking works even without cycle dates. Existing flat period-start and bleeding-day data must remain readable and exportable without silent loss.
 
@@ -184,24 +184,27 @@ History opens with category filters and supports inspection. General records use
 Pattern statements are cautious associations: “often coincided with”, “travelled with”, “worth watching”. Never state causation. Weekly review is optional and begins with what Bloom noticed before asking for reflection.
 
 ## 21. Two-week trial and amendment tracker
-The formal trial runs from 26 September through 10 October 2026. During this window Bloom collects amendment ideas but receives no further feature or design changes. Settings contains the local-first Trial amendment notes tracker with a category, automatic record date and free-text note. Notes use immediate Undo and are included in JSON backup/import. Review and prioritisation begin only after 10 October 2026.
+The trial began on 26 September 2026 and was paused on 4 October because adoption blockers meant Bloom was not being used. Settings retains the local-first amendment notes tracker with a category, automatic record date and free-text note. Notes use immediate Undo and are included in JSON backup/import. A fresh two-week trial begins only after blocker repairs are accepted.
 
-## 21. Data model
+## 22. Reminders
+Settings provides configurable morning and evening reminders using recurring iPhone Calendar events with alerts and a direct Bloom link. The calendar route is deliberate: a closed browser page cannot honestly promise reliable scheduled local notifications. Reminder preferences are local-first and included in JSON backup/import. Calendar events can be edited or deleted in iPhone Calendar.
+
+## 23. Data model
 Use event-based data with typed records rather than one giant daily object. Minimum record families: baseline, medication-adherence, check-in, `quick-event` (legacy internal record type for visual-trigger actions), support-now, what-just-happened, cycle-event, health-snapshot, manual-correction.
 
 All records support timestamp, local date, source, created/updated times and optional note. Shared experiences referenced from different UI routes must resolve to one event where possible.
 
-## 22. Privacy and hosting
+## 24. Privacy and hosting
 Bloom stores personal data locally in the browser/device by default. Export/import is JSON. Do not place health payloads in URLs or public query strings. Do not require a remote health database for the MVP.
 
 Hosted production must be access-controlled. The application code may be hosted separately from personal local data.
 
-## 23. Deployment and source of truth
+## 25. Deployment and source of truth
 `docs/BLOOM_MASTER_SPEC.md` is canonical for product behaviour and data rules. `docs/BLOOM_UI_BRAND_GUIDELINE.md` is canonical for visual identity and presentation. `assets/triggers/trigger-assets.json` is the machine-readable source of truth for the six locked visual-trigger assets.
 
 `bloom.config.json`, UI copy, data schema and implementation must stay consistent with those sources. A product or visual change is incomplete until the applicable source-of-truth documents and implementation are both updated.
 
-## 24. Acceptance checks
+## 26. Acceptance checks
 - No user-facing “low-energy”, “quick” or “deep”.
 - First-open daily baseline works.
 - First-open baseline preserves the visual Home scene behind its focused overlay.

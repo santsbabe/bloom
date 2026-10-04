@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 10,
+  "schemaVersion": 11,
   "app": {
     "name": "Bloom",
     "platform": "mobile-web-pwa",
@@ -83,18 +83,28 @@
     "ongoingPeriodEnd": null,
     "dailyFlowModel": "heaviest-flow-reached-that-day",
     "flowLevels": ["spotting", "light", "medium", "heavy"],
-    "flowRequiredForEveryBleedingDay": true,
+    "flowRequiredForEveryBleedingDay": false,
+    "missingFlowMeaning": "not-recorded",
     "completedPeriodEditing": false,
     "ongoingPeriodEditing": true,
     "legacyCycleDataPreserved": true
   },
   "trial": {
     "starts": "2026-09-26",
-    "amendmentsResumeAfter": "2026-10-10",
-    "mode": "collect-notes-only",
+    "paused": "2026-10-04",
+    "restartAfterBlockers": true,
+    "mode": "paused-for-adoption-blockers",
     "trackerLocation": "settings",
     "storage": "localStorage-and-json-backup",
     "correctionModel": "immediate-undo-only"
+  },
+  "reminders": {
+    "delivery": "recurring-ics-calendar-events",
+    "opens": "https://bloom-health-app.netlify.app",
+    "defaultTimes": ["08:00", "20:30"],
+    "configurable": true,
+    "worksWhenBrowserClosed": true,
+    "privateNotificationCopy": true
   },
   "patterns": {
     "primaryView": "relationship-cards",
