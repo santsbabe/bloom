@@ -14,6 +14,7 @@
 - The trial that began on 26 September was paused on 4 October 2026 because adoption blockers stopped normal use. Restart a fresh two-week trial only after the period-ending and reminder paths are accepted.
 - Closed-browser reminders must use an honest device-level route. v38 generates configurable recurring iPhone Calendar alerts linking to Bloom; do not claim ordinary web-page notifications can fire reliably while the browser is closed.
 - Mobile Bedtime and Wake time inputs stack vertically. Do not reintroduce overlapping two-column time fields on phone widths.
+- Morning completion must survive reloads. Normalise legacy/imported baseline storage and recover the completion marker from an existing same-day baseline event before opening the morning form.
 - Production deployment requires Santie’s explicit approval and an exact tested revision; this approval was given on 26 September 2026 for the v37 finished-product release.
 - Run `node --check app.js`, `node tests/regression.mjs`, JSON parsing, and `git diff --check` before publishing.
 - Increment the service-worker cache name whenever loaded assets or application code changes.

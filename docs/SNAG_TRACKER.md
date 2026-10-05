@@ -72,3 +72,12 @@
 - Implemented repair: phone layouts stack both fields vertically with compact spacing and minimum-width protection; wider layouts remain two-column.
 - Regression: `tests/regression.mjs` checks the mobile single-column override.
 - Physical evidence still required: inspect the expanded section on the target iPhone in the protected preview.
+
+## Completed morning log reopened
+
+- Symptom: Bloom repeatedly displayed the morning baseline after that morning had already been saved.
+- Root cause: baseline storage was assumed to be a date-keyed object. A legacy or imported array accepts an in-memory `baselines[date]` property, but `JSON.stringify` omits that named array property, so completion disappears after reopening.
+- Boundary: legacy/imported localStorage shape → morning save → next app start.
+- Implemented repair: normalise baseline storage on load and import; if the date-keyed record is absent but a same-day baseline event exists, reconstruct and persist the completion marker instead of creating another entry.
+- Regression: `tests/regression.mjs` checks normalisation, event recovery, import handling and the recovered startup gate.
+- Physical evidence still required: seed the affected state in the protected preview, confirm Home opens, reload, and confirm Home still opens with Morning saved.
