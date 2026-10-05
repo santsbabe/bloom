@@ -15,6 +15,11 @@ assert.match(js, /button\.classList\.add\('recorded'\)/, 'Trigger save must set 
 assert.match(js, /if\(!primary\)return alert/, 'Trigger save must require a primary answer');
 assert.match(js, /closeModal\(\);renderToday\(\);showSaved/, 'Trigger save must close and confirm immediately');
 assert.match(js, /function sortTriggers\(\)/, 'Most-used trigger ordering missing');
+assert.match(js, /const normaliseBaselines=value=>Array\.isArray\(value\)\?Object\.fromEntries/, 'Legacy array-shaped baseline storage must be normalised');
+assert.match(js, /function morningForDate\(date=today\(\)\)/, 'Morning completion recovery is missing');
+assert.match(js, /find\(e=>e\.type==='baseline'&&e\.date===date\)/, 'A saved baseline event must recover a missing completion marker');
+assert.match(js, /baselines=normaliseBaselines\(o\.baselines\|\|\{\}\)/, 'Imported baseline storage must be normalised');
+assert.match(js, /morningForDate\(today\(\)\)\?\.complete\?show\('today'\):baseline\(\)/, 'Startup must respect recovered morning completion');
 assert.match(js, /Cycle day \$\{cd\}/, 'Cycle day must be written in full');
 assert.match(js, /data-history-filter/, 'History category filters missing');
 assert.doesNotMatch(js, /data-del=/, 'History must not expose later deletion');
@@ -67,4 +72,4 @@ assert.equal(config.reminders.delivery, 'recurring-ics-calendar-events');
 assert.equal(config.reminders.worksWhenBrowserClosed, true);
 assert.equal(config.patterns.showEmergingEarly, true);
 
-console.log('Bloom v38 blocker regression checks passed');
+console.log('Bloom v39 blocker regression checks passed');
